@@ -1,8 +1,8 @@
 # Copyright DST Group. Licensed under the MIT license.
 
 from CybORG.Shared.Observation import Observation
-from CybORG.Simulator.Session import SessionType, QueryType
-
+from CybORG.Simulator.Session import SessionType
+from CybORG.Shared.Enums import QueryType
 from .VelociraptorAction import VelociraptorAction
 
 

@@ -1,8 +1,8 @@
 # Copyright DST Group. Licensed under the MIT license.
 from ipaddress import IPv4Address
-
-from CybORG.CybORG import CredentialAccess
-from CybORG.Simulator.Session import SessionType, ProcessType
+from CybORG.Shared.Actions.ShellActionsFolder.OpenConnectionFolder.CredentialAccessFolder.CredentialAccess import CredentialAccess
+from CybORG.Simulator.Session import SessionType
+from CybORG.Shared.Enums import ProcessType
 from CybORG.Shared.Observation import Observation
 
 

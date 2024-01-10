@@ -1,8 +1,7 @@
 # Copyright DST Group. Licensed under the MIT license.
-from ipaddress import IPv4Address, IPv4Network
-
-from CybORG.CybORG import NetworkScan
-from CybORG.CybORG import FileType, InterfaceType
+from ipaddress import IPv4Address
+from CybORG.Shared.Actions.ShellActionsFolder.NetworkScanFolder.NetworkScan import NetworkScan
+from CybORG.Shared.Enums import FileType
 from CybORG.Shared.Observation import Observation
 
 

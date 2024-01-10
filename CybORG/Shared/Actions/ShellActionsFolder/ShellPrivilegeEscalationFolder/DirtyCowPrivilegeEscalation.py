@@ -1,7 +1,7 @@
 # Copyright DST Group. Licensed under the MIT license.
 from ipaddress import IPv4Address
 
-from CybORG.CybORG import ShellPrivilegeEscalation
+from CybORG.Shared.Actions.ShellActionsFolder.ShellPrivilegeEscalationFolder.ShellPrivilegeEscalation import ShellPrivilegeEscalation
 
 
 # May want to separate this action into two actions which takes a session each in future, rather than one action that
@@ -20,7 +20,7 @@ from CybORG.CybORG import ShellPrivilegeEscalation
 # su firefart
 # Now prompted for password, enter "password"
 # gives a root privileged session as user firefart (which has replaced root user in /etc/passwd file)
-from CybORG.CybORG import FileType
+from CybORG.Shared.Enums import FileType
 from CybORG.Shared.Observation import Observation
 from CybORG.Simulator.State import State
 

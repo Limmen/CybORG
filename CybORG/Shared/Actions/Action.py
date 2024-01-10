@@ -1,6 +1,5 @@
 # Copyright DST Group. Licensed under the MIT license.
 from CybORG.Shared.Observation import Observation
-from CybORG.Shared.Logger import CybORGLogger
 from CybORG.Simulator.State import State
 
 

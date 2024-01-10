@@ -115,7 +115,7 @@ class AgentInterface:
         self.action_space.reset(self.agent_name)
         self.agent.end_episode()
 
-    def create_reward_calculator(self, reward_calculator: str, agent_name: str, scenario: Scenario) -> RewardCalculator:
+    def create_reward_calculator(self, reward_calculator: str, agent_name: str, scenario) -> RewardCalculator:
         calc = None
         if reward_calculator == "Baseline":
             calc = BaselineRewardCalculator(agent_name)

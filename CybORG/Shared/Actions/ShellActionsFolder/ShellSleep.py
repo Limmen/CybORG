@@ -1,9 +1,6 @@
 # Copyright DST Group. Licensed under the MIT license.
-
 import time
-
 from CybORG.Shared.Observation import Observation
-
 from .ShellAction import ShellAction
 
 

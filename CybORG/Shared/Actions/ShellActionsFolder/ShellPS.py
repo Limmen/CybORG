@@ -1,5 +1,5 @@
 # Copyright DST Group. Licensed under the MIT license.
-from CybORG.CybORG import ShellAction
+from CybORG.Shared.Actions.ShellActionsFolder.ShellAction import ShellAction
 from CybORG.Shared.Enums import OperatingSystemType, SessionType
 from CybORG.Shared.Observation import Observation
 from CybORG.Simulator.State import State

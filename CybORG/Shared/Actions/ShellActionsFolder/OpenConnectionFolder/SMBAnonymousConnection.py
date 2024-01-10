@@ -1,7 +1,6 @@
 # Copyright DST Group. Licensed under the MIT license.
 from ipaddress import IPv4Address
-
-from CybORG.CybORG import OpenConnection
+from CybORG.Shared.Actions.ShellActionsFolder.OpenConnectionFolder.OpenConnection import OpenConnection
 from CybORG.Simulator.Process import ProcessType
 from CybORG.Shared.Observation import Observation
 from CybORG.Simulator.State import State

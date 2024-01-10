@@ -2,7 +2,6 @@
 
 from CybORG.Shared.Observation import Observation
 from CybORG.Simulator.Session import SessionType
-
 from .VelociraptorArtifactAction import VelociraptorArtifactAction
 
 

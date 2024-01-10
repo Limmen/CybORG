@@ -2,7 +2,6 @@
 import copy
 import inspect
 import yaml
-from CybORG.main import Main
 from CybORG.Shared.Actions.Action import Action
 from CybORG.Shared.EnvironmentController import EnvironmentController
 from CybORG.Shared.Observation import Observation
@@ -47,6 +46,7 @@ class SimulationController(EnvironmentController):
         pass
 
     def _parse_scenario(self, scenario_filepath: str, scenario_mod: dict = None):
+        from CybORG.main import Main
         scenario_dict = super()._parse_scenario(scenario_filepath, scenario_mod=scenario_mod)
         images_file_path = str(inspect.getfile(Main))
         images_file_path = images_file_path[:-10] + '/Shared/Scenarios/images/'

@@ -1,9 +1,7 @@
 # Copyright DST Group. Licensed under the MIT license.
 import time
-
 from CybORG.Shared.Observation import Observation
-from CybORG.CybORG import QueryType
-
+from CybORG.Shared.Enums import QueryType
 from .VelociraptorAction import VelociraptorAction
 
 

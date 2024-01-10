@@ -1,8 +1,7 @@
 # Copyright DST Group. Licensed under the MIT license.
 from ipaddress import IPv4Address
 
-from CybORG.CybORG import \
-    ShellPrivilegeEscalation
+from CybORG.Shared.Actions.ShellActionsFolder.ShellPrivilegeEscalationFolder.ShellPrivilegeEscalation import ShellPrivilegeEscalation
 
 # May want to separate this action into two actions which takes a session each in future, rather than one action that
 # takes two sessions
@@ -26,10 +25,9 @@ from CybORG.CybORG import \
 # This gives a root session through the netcat listener on Attacker
 # can run > python -c 'import pty; pty.spawn("/bin/bash")' # gives TTY session
 # Note if the netcat listener is run but no connection is made, the netcat listener should then be closed to end action
-from CybORG.CybORG import FileType, AppProtocol
+from CybORG.Shared.Enums import FileType, AppProtocol
 from CybORG.Shared.Observation import Observation
-from CybORG.CybORG import File
-from CybORG.Simulator.Host import Host
+from CybORG.Simulator.File import File
 from CybORG.Simulator.State import State
 
 

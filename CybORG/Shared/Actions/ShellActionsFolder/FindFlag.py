@@ -1,6 +1,6 @@
 # Copyright DST Group. Licensed under the MIT license.
-from CybORG.CybORG import ShellAction
-from CybORG.CybORG import FileType
+from CybORG.Shared.Actions.ShellActionsFolder.ShellAction import ShellAction
+from CybORG.Shared.Enums import FileType
 from CybORG.Shared.Observation import Observation
 
 

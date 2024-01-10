@@ -1,8 +1,7 @@
 # Copyright DST Group. Licensed under the MIT license.
-from CybORG import CybORG as CyEnums
+from CybORG.Shared import Enums as CyEnums
 from CybORG.Shared.Enums import OperatingSystemType as ost
-from CybORG.CybORG import VelociraptorArtifactAction
-from CybORG.CybORG import QueryType
+from CybORG.Shared.Actions.VelociraptorActionsFolder.VelociraptorArtifactAction import VelociraptorArtifactAction
 from CybORG.Shared.Observation import Observation
 
 

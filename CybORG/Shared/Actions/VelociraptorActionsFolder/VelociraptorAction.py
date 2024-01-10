@@ -1,8 +1,7 @@
 # Copyright DST Group. Licensed under the MIT license.
 
 from CybORG.Shared.Observation import Observation
-from CybORG.CybORG import QueryType
-
+from CybORG.Shared.Enums import QueryType
 from .HostMonitoringAction import HostMonitoringAction
 
 

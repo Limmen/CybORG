@@ -15,9 +15,8 @@ from CybORG.Simulator.File import File
 from CybORG.Simulator.Interface import Interface
 from CybORG.Simulator.MSFServerSession import MSFServerSession
 from CybORG.Simulator.Process import Process
-from CybORG.Simulator.Session import Session
+from CybORG.Simulator.Session import Session, RedAbstractSession, VelociraptorServer
 from CybORG.Simulator.User import User
-from Session import RedAbstractSession, VelociraptorServer
 
 
 class Host(Entity):
