@@ -43,7 +43,7 @@ class ActionSpace:
 
     def get_action_classes(self, actions):
         action_classes = []
-        action_module = sys.modules['CybORG.Shared.Actions']
+        action_module = sys.modules['cyborg.shared.actions']
         for action in actions:
             action_classes.append(getattr(action_module, action))
         return action_classes

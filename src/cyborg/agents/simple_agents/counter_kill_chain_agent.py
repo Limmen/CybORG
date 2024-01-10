@@ -1,9 +1,9 @@
 from cyborg.agents.simple_agents.base_agent import BaseAgent
 import random
 from ipaddress import IPv4Address
-from cyborg.shared.actions.velociraptor_actions_folder.VelociraptorPoll import VelociraptorPoll
-from cyborg.shared.actions.shell_actions_folder.open_connection_folder.credential_access_folder.SSHAccess import SSHAccess
-from cyborg.shared.actions.shell_actions_folder.KillProcessLinux import KillProcessLinux
+from cyborg.shared.actions.velociraptor_actions_folder.velociraptor_poll import VelociraptorPoll
+from cyborg.shared.actions.shell_actions_folder.open_connection_folder.credential_access_folder.ssh_access import SSHAccess
+from cyborg.shared.actions.shell_actions_folder.kill_process_linux import KillProcessLinux
 
 
 class CounterKillchainAgent(BaseAgent):
