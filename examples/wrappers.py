@@ -1,6 +1,13 @@
 import inspect
-from cyborg import Main
-from agents import B_lineAgent
+from cyborg.main import Main
+from cyborg.agents.simple_agents.b_line import B_lineAgent
+from cyborg.agents.wrappers.enum_action_wrapper import EnumActionWrapper
+from cyborg.agents.wrappers.fixed_flat_wrapper import FixedFlatWrapper
+from cyborg.agents.wrappers.open_ai_gym_wrapper import OpenAIGymWrapper
+from cyborg.agents.wrappers.true_table_wrapper import TrueTableWrapper
+from cyborg.agents.wrappers.blue_table_wrapper import BlueTableWrapper
+from cyborg.agents.wrappers.red_table_wrapper import RedTableWrapper
+from cyborg.agents.wrappers.challenge_wrapper import ChallengeWrapper
 from pprint import pprint
 
 if __name__ == '__main__':

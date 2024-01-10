@@ -2,24 +2,3 @@ from setuptools import setup
 
 if __name__ == '__main__':
     setup()
-
-# import sys
-# from setuptools import setup
-#
-# assert sys.version_info.major == 3 and sys.version_info.minor >= 7, \
-#     "The CybORG repo is designed to work with Python 3.7 and greater." \
-#     + "Please install it before proceeding."
-#
-# with open('Requirements.txt') as f:
-#     requirements = f.read().splitlines()
-#
-# with open('src/cyborg/version.txt') as f:
-#     CYBORG_VERSION = f.read()[:-1]
-#
-#
-# setup(
-#     name="cyborg",
-#     version=CYBORG_VERSION,
-#     install_requires=requirements,
-#     description="A Cyber Security Research Environment",
-# )

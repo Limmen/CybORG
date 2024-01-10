@@ -1,4 +1,13 @@
-from agents import RedTableWrapper
+import inspect
+from cyborg.agents.simple_agents.b_line import B_lineAgent
+from cyborg.agents.simple_agents.meander import RedMeanderAgent
+from cyborg.agents.simple_agents.blue_react_agent import BlueReactRemoveAgent, BlueReactRestoreAgent
+from cyborg.agents.simple_agents.green_agent import GreenAgent
+from cyborg.agents.simple_agents.blue_monitor_agent import BlueMonitorAgent
+from cyborg.agents.simple_agents.keyboard_agent import KeyboardAgent
+from cyborg.agents.wrappers.red_table_wrapper import RedTableWrapper
+from cyborg.shared.actions.abstract_actions.restore import Restore
+from cyborg.main import Main
 
 if __name__ == '__main__':
     path = str(inspect.getfile(Main))

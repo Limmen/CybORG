@@ -49,7 +49,7 @@ class SimulationController(EnvironmentController):
         from cyborg.main import Main
         scenario_dict = super()._parse_scenario(scenario_filepath, scenario_mod=scenario_mod)
         images_file_path = str(inspect.getfile(Main))
-        images_file_path = images_file_path[:-7] + '/Shared/Scenarios/images/'
+        images_file_path = images_file_path[:-7] + '/shared/scenarios/images/'
         with open(images_file_path + 'images.yaml') as fIn:
             images_dict = yaml.load(fIn, Loader=yaml.FullLoader)
         if scenario_dict is not None:

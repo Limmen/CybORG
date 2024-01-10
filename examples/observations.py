@@ -1,9 +1,9 @@
 import inspect
 import random
 from pprint import pprint
-from cyborg import Main
+from cyborg.main import Main
 from agents import B_lineAgent
-from shared.Actions import Analyse
+from cyborg.shared.actions.abstract_actions.analyse import Analyse
 
 if __name__ == '__main__':
     path = str(inspect.getfile(Main))

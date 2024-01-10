@@ -1,5 +1,15 @@
 import random
-from agents import B_lineAgent
+import inspect
+from cyborg.agents.simple_agents.b_line import B_lineAgent
+from cyborg.shared.actions.abstract_actions.discover_network_services import DiscoverNetworkServices
+from cyborg.shared.actions.abstract_actions.discover_remote_systems import DiscoverRemoteSystems
+from cyborg.shared.actions.abstract_actions.exploit_remote_service import ExploitRemoteService
+from cyborg.shared.actions.abstract_actions.analyse import Analyse
+from cyborg.shared.actions.abstract_actions.remove import Remove
+from cyborg.shared.actions.abstract_actions.restore import Restore
+from cyborg.shared.actions.abstract_actions.privilege_escalate import PrivilegeEscalate
+from cyborg.shared.actions.action import Sleep
+from cyborg.main import Main
 from pprint import pprint
 
 if __name__ == '__main__':

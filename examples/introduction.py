@@ -1,12 +1,13 @@
-from cyborg.main import Main
-from cyborg.agents import B_lineAgent, GreenAgent, BlueMonitorAgent
+from cyborg.agents.simple_agents.b_line import B_lineAgent
+from cyborg.agents.simple_agents.green_agent import GreenAgent
+from cyborg.agents.simple_agents.blue_monitor_agent import BlueMonitorAgent
 from cyborg.agents.wrappers.challenge_wrapper import ChallengeWrapper
 from cyborg.main import Main
 import inspect
 
 if __name__ == '__main__':
     path = str(inspect.getfile(Main))
-    path = path[:-7] + '/Shared/Scenarios/Scenario2.yaml'
+    path = path[:-7] + '/shared/scenarios/Scenario2.yaml'
     env = Main(path, 'sim')
     results = env.reset(agent='Red')
     obs = results.observation

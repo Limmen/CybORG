@@ -3,7 +3,6 @@
 
 import sys
 import yaml
-import cyborg.agents
 from cyborg.shared.scenario import Scenario
 from cyborg.shared.actions.action import Action, InvalidAction
 from cyborg.shared.results import Results
@@ -356,7 +355,8 @@ class EnvironmentController:
             if agent_classes is not None and agent_name in agent_classes:
                 agent_class = agent_classes[agent_name]
             else:
-                agent_class = getattr(sys.modules['CybORG.Agents'], agent_info.agent_type)
+                print(agent_info.agent_type)
+                agent_class = getattr(sys.modules['cyborg.agents'], agent_info.agent_type)
             agents[agent_name] = AgentInterface(
                 agent_class,
                 agent_name,
