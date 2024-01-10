@@ -8,12 +8,12 @@ assert sys.version_info.major == 3 and sys.version_info.minor >= 7, \
 with open('Requirements.txt') as f:
     requirements = f.read().splitlines()
 
-with open('CybORG/version.txt') as f:
+with open('cyborg/version.txt') as f:
     CYBORG_VERSION = f.read()[:-1]
 
 
 setup(
-    name="CybORG",
+    name="cyborg",
     version=CYBORG_VERSION,
     install_requires=requirements,
     description="A Cyber Security Research Environment",
