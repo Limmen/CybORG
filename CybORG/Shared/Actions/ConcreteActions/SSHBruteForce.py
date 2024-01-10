@@ -2,20 +2,19 @@
 ## Additionally, we waive copyright and related rights in the utilized code worldwide through the CC0 1.0 Universal public domain dedication.
 from ipaddress import IPv4Address
 from typing import Optional
-
-from CybORG.CybORG import ExploitAction
-from CybORG.CybORG import lo, lo_subnet
-from CybORG.CybORG import SessionType, ProcessType, OperatingSystemType, DecoyType
-from CybORG.CybORG import Observation
-from CybORG.CybORG import Host
-from CybORG.CybORG import State
-from CybORG.CybORG import Process
+from CybORG.Shared.Actions.ConcreteActions.ExploitAction import ExploitAction
+from CybORG.Shared.Actions.MSFActionsFolder.MSFAction import lo
+from CybORG.Shared.Enums import ProcessType, DecoyType
+from CybORG.Shared.Observation import Observation
+from CybORG.Simulator.Host import Host
+from CybORG.Simulator.State import State
+from CybORG.Simulator.Process import Process
 
 
 class SSHBruteForce(ExploitAction):
     def __init__(self, ip_address: IPv4Address, agent: str, session: int, target_session: int):
         super().__init__(session=session, agent=agent, ip_address=ip_address,
-                target_session=target_session)
+                         target_session=target_session)
         self.ip_address = ip_address
         self.target_session = target_session
 
@@ -87,17 +86,20 @@ class SSHBruteForce(ExploitAction):
         if user is not None and not (vuln_proc.decoy_type & DecoyType.EXPLOIT):
             obs.set_success(True)
 
-            new_proc = target_host.add_process(name="sshd", ppid=vuln_proc.pid, path=vuln_proc.path, user=user.username, process_type="ssh")
+            new_proc = target_host.add_process(name="sshd", ppid=vuln_proc.pid, path=vuln_proc.path, user=user.username,
+                                               process_type="ssh")
 
             if bool(vuln_proc.decoy_type & DecoyType.SANDBOXING_EXPLOIT):
 
                 new_session = state.add_session(host=target_host.hostname, agent=self.agent,
-                                            user=user.username, session_type="ssh", parent=session, process=new_proc.pid,
-                                            is_escalate_sandbox=True)
+                                                user=user.username, session_type="ssh", parent=session,
+                                                process=new_proc.pid,
+                                                is_escalate_sandbox=True)
             else:
 
                 new_session = state.add_session(host=target_host.hostname, agent=self.agent,
-                                            user=user.username, session_type="ssh", parent=session, process=new_proc.pid)
+                                                user=user.username, session_type="ssh", parent=session,
+                                                process=new_proc.pid)
 
             remote_port = target_host.get_ephemeral_port()
             new_connection = {"local_port": 22,
@@ -119,11 +121,14 @@ class SSHBruteForce(ExploitAction):
                                 "remote_port": 22
                                 }
             from_host.get_process(session.pid).connections.append(remote_port_dict)
-            obs.add_process(hostid=str(originating_ip_address), local_address=originating_ip_address, remote_address=self.ip_address,
+            obs.add_process(hostid=str(originating_ip_address), local_address=originating_ip_address,
+                            remote_address=self.ip_address,
                             local_port=remote_port, remote_port=22)
-            obs.add_process(hostid=str(self.ip_address), local_address=self.ip_address, remote_address=originating_ip_address,
+            obs.add_process(hostid=str(self.ip_address), local_address=self.ip_address,
+                            remote_address=originating_ip_address,
                             local_port=22, remote_port=remote_port, process_type='ssh')
-            obs.add_session_info(hostid=str(self.ip_address), username=user.username, session_id=new_session.ident, session_type="ssh", agent=self.agent)
+            obs.add_session_info(hostid=str(self.ip_address), username=user.username, session_id=new_session.ident,
+                                 session_type="ssh", agent=self.agent)
             obs.add_user_info(hostid=str(self.ip_address), username=user.username, password=user.password, uid=user.uid)
 
             obs.add_system_info(hostid=str(self.ip_address), hostname=target_host.hostname, os_type=target_host.os_type)

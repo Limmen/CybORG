@@ -1,9 +1,9 @@
 from ipaddress import IPv4Network
 
-from CybORG.CybORG import Observation
-from CybORG.CybORG import ConcreteAction
-from CybORG.CybORG import lo_subnet, lo
-from CybORG.CybORG import State
+from CybORG.Shared.Observation import Observation
+from CybORG.Shared.Actions.ConcreteActions.ConcreteAction import ConcreteAction
+from CybORG.Shared.Actions.MSFActionsFolder.MSFAction import lo_subnet, lo
+from CybORG.Simulator.State import State
 
 
 class Pingsweep(ConcreteAction):

@@ -1,10 +1,10 @@
 # Copyright DST Group. Licensed under the MIT license.
 from ipaddress import IPv4Network
 
-from CybORG.CybORG import MSFAction
-from CybORG.CybORG import SessionType
-from CybORG.CybORG import Observation
-from CybORG.CybORG import State
+from CybORG.Shared.Actions.MSFActionsFolder.MSFAction import MSFAction
+from CybORG.Simulator.Session import SessionType
+from CybORG.Shared.Observation import Observation
+from CybORG.Simulator.State import State
 
 
 class MSFAutoroute(MSFAction):

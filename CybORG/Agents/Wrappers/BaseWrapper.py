@@ -1,12 +1,11 @@
-from typing import Union, Any
+from typing import Any
 
-from CybORG.CybORG import CybORG
-from CybORG.CybORG import BaseAgent
-from CybORG.CybORG import Results
+from CybORG.Agents.SimpleAgents.BaseAgent import BaseAgent
+from CybORG.Shared.Results import Results
 
 
 class BaseWrapper:
-    def __init__(self, env: CybORG = None, agent: BaseAgent = None):
+    def __init__(self, env = None, agent: BaseAgent = None):
         # wrapper allows changes to be made to the interface between external agents via specification of the env
         self.env = env
         # wrapper allows changes to be made to the interface between internal agents via specification of the agent

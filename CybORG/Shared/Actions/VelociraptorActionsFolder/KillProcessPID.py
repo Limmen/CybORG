@@ -1,9 +1,9 @@
 # Copyright DST Group. Licensed under the MIT license.
 from CybORG import CybORG as CyEnums
-from CybORG.CybORG import OperatingSystemType as ost
+from CybORG.Shared.Enums import OperatingSystemType as ost
 from CybORG.CybORG import VelociraptorArtifactAction
 from CybORG.CybORG import QueryType
-from CybORG.CybORG import Observation
+from CybORG.Shared.Observation import Observation
 
 
 class KillProcessPID(VelociraptorArtifactAction):

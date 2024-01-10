@@ -2,8 +2,7 @@
 
 import sys
 from inspect import signature
-
-from CybORG.CybORG import SessionType
+from CybORG.Shared.Enums import SessionType
 
 MAX_SUBNETS = 10
 MAX_ADDRESSES = 10
@@ -157,7 +156,10 @@ class ActionSpace:
             if "Sessions" in info:
                 for session in info["Sessions"]:
                     if "ID" in session and session['Agent'] in self.agent:
-                        if "Type" in session and (session["Type"] == SessionType.MSF_SERVER or session["Type"] == SessionType.VELOCIRAPTOR_SERVER or session["Type"] == SessionType.RED_ABSTRACT_SESSION or session["Type"] == SessionType.GREY_SESSION):
+                        if "Type" in session and (session["Type"] == SessionType.MSF_SERVER or session[
+                            "Type"] == SessionType.VELOCIRAPTOR_SERVER or session[
+                                                      "Type"] == SessionType.RED_ABSTRACT_SESSION or session[
+                                                      "Type"] == SessionType.GREY_SESSION):
                             self.server_session[session["ID"]] = known
 
                         self.client_session[session["ID"]] = known

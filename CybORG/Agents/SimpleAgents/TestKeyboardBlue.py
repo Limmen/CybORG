@@ -1,20 +1,19 @@
-from CybORG.CybORG import CybORG
+from CybORG.main import Main
 import inspect
+from CybORG.Agents.SimpleAgents.KeyboardAgent import KeyboardAgent
+from CybORG.Agents.SimpleAgents.GreenAgent import GreenAgent
+from CybORG.Agents.SimpleAgents.B_line import B_lineAgent
+from CybORG.Agents.Wrappers.BlueTableWrapper import BlueTableWrapper
 
-from CybORG.CybORG import KeyboardAgent
-from CybORG.CybORG import GreenAgent
-from CybORG.CybORG import BlueTableWrapper
-from CybORG.CybORG import B_lineAgent
-from CybORG.CybORG import RedMeanderAgent
 
 if __name__ == "__main__":
     print("Setup")
-    path = str(inspect.getfile(CybORG))
+    path = str(inspect.getfile(Main))
     path = path[:-10] + '/Shared/Scenarios/Scenario1b.yaml'
 
     agents = {'Red': B_lineAgent,'Green': GreenAgent}
     # agents = {'Red': RedMeanderAgent,'Green': GreenAgent}
-    cyborg = BlueTableWrapper(CybORG(path, 'sim',agents=agents), output_mode='table')
+    cyborg = BlueTableWrapper(Main(path, 'sim',agents=agents), output_mode='table')
     
     agent_name = 'Blue'
 

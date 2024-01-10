@@ -1,10 +1,8 @@
-import copy
-import inspect, pprint
+import inspect
 from typing import Union
-
-from CybORG.CybORG import BaseAgent
-from CybORG.CybORG import BaseWrapper
-from CybORG.CybORG import Results
+from CybORG.Agents.SimpleAgents.BaseAgent import BaseAgent
+from CybORG.Agents.Wrappers.BaseWrapper import BaseWrapper
+from CybORG.Shared.Results import Results
 
 
 class EnumActionWrapper(BaseWrapper):

@@ -1,11 +1,10 @@
 from random import choice
 
-from CybORG.CybORG import Observation
-from .Monitor import Monitor
-from CybORG.CybORG import Action
-from CybORG.CybORG import RestoreFromBackup
-from CybORG.CybORG import VelociraptorServer
-from CybORG.CybORG import Monitor
+from CybORG.Shared.Observation import Observation
+from CybORG.Shared.Actions.Action import Action
+from CybORG.Shared.Actions.ConcreteActions.RestoreFromBackup import RestoreFromBackup
+from CybORG.Simulator.Session import VelociraptorServer
+
 
 class Restore(Action):
     def __init__(self, session: int, agent: str, hostname: str):
@@ -16,8 +15,8 @@ class Restore(Action):
 
     def sim_execute(self, state) -> Observation:
         # perform monitor at start of action
-        #monitor = Monitor(session=self.session, agent=self.agent)
-        #obs = monitor.sim_execute(state)
+        # monitor = Monitor(session=self.session, agent=self.agent)
+        # obs = monitor.sim_execute(state)
 
         if self.session not in state.sessions[self.agent]:
             return Observation(False)

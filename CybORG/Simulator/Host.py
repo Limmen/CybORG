@@ -2,27 +2,22 @@
 ## Additionally, we waive copyright and related rights in the utilized code worldwide through the CC0 1.0 Universal public domain dedication.
 import hashlib
 from copy import deepcopy
-from datetime import datetime
-
-from ipaddress import IPv4Network, IPv4Address
 from random import randrange
 from typing import Optional, List
 
-from CybORG.CybORG import (
-        SessionType, OperatingSystemPatch, OperatingSystemKernelVersion,
-        OperatingSystemVersion, DecoyType,
-        OperatingSystemDistribution, OperatingSystemType
-        )
-
-from CybORG.CybORG import Entity
-from CybORG.CybORG import File
-from CybORG.CybORG import Interface
-from CybORG.CybORG import LocalGroup
-from CybORG.CybORG import MSFServerSession
-from CybORG.CybORG import Process
-from CybORG.CybORG import VelociraptorServer, RedAbstractSession, Session
-
-from CybORG.CybORG import User
+from CybORG.Shared.Enums import (
+    OperatingSystemPatch, OperatingSystemKernelVersion,
+    OperatingSystemVersion, DecoyType,
+    OperatingSystemDistribution, OperatingSystemType
+)
+from CybORG.Simulator.Entity import Entity
+from CybORG.Simulator.File import File
+from CybORG.Simulator.Interface import Interface
+from CybORG.Simulator.MSFServerSession import MSFServerSession
+from CybORG.Simulator.Process import Process
+from CybORG.Simulator.Session import Session
+from CybORG.Simulator.User import User
+from Session import RedAbstractSession, VelociraptorServer
 
 
 class Host(Entity):
@@ -33,7 +28,8 @@ class Host(Entity):
     """
 
     def __init__(self, system_info: dict, hostname: str = None, users: dict = None,
-                 files: list = None, sessions: dict = None, processes: list = None, interfaces: list = None, info: dict = None,
+                 files: list = None, sessions: dict = None, processes: list = None, interfaces: list = None,
+                 info: dict = None,
                  services: dict = None):
         super().__init__()
         self.original_services = {}
@@ -79,7 +75,7 @@ class Host(Entity):
                     Process(pid=process.get('PID'), parent_pid=process.get('PPID'), username=process.get("Username"),
                             process_name=process.get('Process Name'), path=process.get('Path'),
                             open_ports=process.get('Connections'), properties=process.get('Properties'),
-                            process_version=process.get('Process Version'), # adding process version.
+                            process_version=process.get('Process Version'),  # adding process version.
                             process_type=process.get('Process Type')))
         self.original_processes = deepcopy(self.processes)
 
@@ -94,7 +90,7 @@ class Host(Entity):
         if services is not None:
             for service_name, service_info in services.items():
                 self.services[service_name] = {'active': service_info.get('active'),
-                                          'process': service_info.get('PID')}
+                                               'process': service_info.get('PID')}
         self.info = info if info is not None else {}
         self.events = {'NetworkConnections': [], 'ProcessCreation': []}
 
@@ -111,8 +107,9 @@ class Host(Entity):
         self.ephemeral_ports.append(port)
         return port
 
-    def add_session(self, username, ident, agent, parent, timeout=0, pid=None, session_type="Shell", name=None, artifacts=None,
-            is_escalate_sandbox:bool=False):
+    def add_session(self, username, ident, agent, parent, timeout=0, pid=None, session_type="Shell", name=None,
+                    artifacts=None,
+                    is_escalate_sandbox: bool = False):
         if parent is not None:
             parent_id = parent.ident
         else:
@@ -130,7 +127,8 @@ class Host(Entity):
                                              timeout=timeout, session_type=session_type, name=name, artifacts=artifacts)
         else:
             new_session = Session(host=self.hostname, agent=agent, username=username, ident=ident, pid=pid,
-                                  timeout=timeout, parent=parent_id, session_type=session_type, name=name, is_escalate_sandbox=is_escalate_sandbox)
+                                  timeout=timeout, parent=parent_id, session_type=session_type, name=name,
+                                  is_escalate_sandbox=is_escalate_sandbox)
 
         if parent is not None:
             parent.children[new_session.ident] = new_session
@@ -156,15 +154,18 @@ class Host(Entity):
             open_ports = [open_ports]
 
         process = Process(pid=pid, process_name=name, parent_pid=ppid, path=path, username=user, program_name=program,
-                          process_type=process_type, process_version=version, open_ports=open_ports, decoy_type = decoy_type, properties = properties)
+                          process_type=process_type, process_version=version, open_ports=open_ports,
+                          decoy_type=decoy_type, properties=properties)
         self.processes.append(process)
         return process
 
     def add_file(self, name: str, path: str, user: str = None, user_permissions: str = None,
-                 group: str = None, group_permissions: int = None, default_permissions: int = None, density=0, signed=False):
+                 group: str = None, group_permissions: int = None, default_permissions: int = None, density=0,
+                 signed=False):
 
         file = File(name=name, path=path, user=self.get_user(user), user_permissions=user_permissions,
-                    group=group, group_permissions=group_permissions, default_permissions=default_permissions, density=density, signed=signed)
+                    group=group, group_permissions=group_permissions, default_permissions=default_permissions,
+                    density=density, signed=signed)
         self.files.append(file)
         return file
 
@@ -335,7 +336,7 @@ class Host(Entity):
         if self.services is not None:
             for service_name, service_info in self.services.items():
                 self.original_services[service_name] = {'active': service_info.get('active'),
-                                               'process': service_info.get('PID')}
+                                                        'process': service_info.get('PID')}
 
     def restore(self):
         self.events = {'NetworkConnections': [], 'ProcessCreation': []}
@@ -395,7 +396,7 @@ class Host(Entity):
         if self.original_services is not None:
             for service_name, service_info in self.original_services.items():
                 self.services[service_name] = {'active': service_info.get('active'),
-                                                        'process': service_info.get('PID')}
+                                               'process': service_info.get('PID')}
 
     def __str__(self):
         return f'{self.hostname}'

@@ -1,15 +1,11 @@
 from random import choice
-from typing import Tuple, List, Optional
-from abc import ABC, abstractmethod
-from dataclasses import dataclass
-
-from CybORG.CybORG import Observation
-from CybORG.CybORG import Action
-from CybORG.CybORG import DecoyType
-from CybORG.CybORG import Host
-from CybORG.CybORG import Session
-from CybORG.CybORG import State
-from CybORG.CybORG import Decoy, DecoyFactory, _is_host_using_port
+from CybORG.Shared.Observation import Observation
+from CybORG.Shared.Actions.Action import Action
+from CybORG.Shared.Enums import DecoyType
+from CybORG.Simulator.Host import Host
+from CybORG.Simulator.Session import Session
+from CybORG.Simulator.State import State
+from CybORG.Shared.Actions.AbstractActions.Misinform import Decoy, DecoyFactory, _is_host_using_port
 
 
 class SSHDDecoyFactory(DecoyFactory):

@@ -1,6 +1,5 @@
 # Copyright DST Group. Licensed under the MIT license.
-from .Action import Action
-
+from CybORG.Shared.Actions.Action import Action
 
 class SessionAction(Action):
     """Abstract class for a session level action.

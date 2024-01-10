@@ -1,16 +1,13 @@
-import random
-from ipaddress import IPv4Address
-
-from CybORG.CybORG import Observation
-from CybORG.CybORG import Action
-from CybORG.CybORG import BlueKeep
-from CybORG.CybORG import EternalBlue
-from CybORG.CybORG import HTTPRFI
-from CybORG.CybORG import HTTPSRFI
-from CybORG.CybORG import SSHBruteForce
-from CybORG.CybORG import lo
-from CybORG.CybORG import GreenAbstractSession
-from CybORG.CybORG import State
+from CybORG.Shared.Observation import Observation
+from CybORG.Shared.Actions.Action import Action
+from CybORG.Shared.Actions.ConcreteActions.BlueKeep import BlueKeep
+from CybORG.Shared.Actions.ConcreteActions.EternalBlue import EternalBlue
+from CybORG.Shared.Actions.ConcreteActions.HTTPRFI import HTTPRFI
+from CybORG.Shared.Actions.ConcreteActions.HTTPSRFI import HTTPSRFI
+from CybORG.Shared.Actions.ConcreteActions.SSHBruteForce import SSHBruteForce
+from CybORG.Shared.Actions.MSFActionsFolder.MSFAction import lo
+from CybORG.Simulator.Session import GreenAbstractSession
+from CybORG.Simulator.State import State
 
 
 class GreenConnection(Action):
@@ -30,7 +27,8 @@ class GreenConnection(Action):
                 self.ip_address = ip
                 break
 
-        if type(state.sessions[self.agent][self.session]) is GreenAbstractSession and self.ip_address in state.sessions[self.agent][self.session].ports:
+        if type(state.sessions[self.agent][self.session]) is GreenAbstractSession and self.ip_address in \
+                state.sessions[self.agent][self.session].ports:
             ports = state.sessions[self.agent][self.session].ports[self.ip_address]
             exploit_options = {EternalBlue: 2.0 if 139 in ports else 0.0,
                                BlueKeep: 1.0 if 3389 in ports else 0.0,

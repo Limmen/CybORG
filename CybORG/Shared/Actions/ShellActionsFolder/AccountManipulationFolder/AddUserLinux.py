@@ -1,7 +1,7 @@
 # Copyright DST Group. Licensed under the MIT license.
 from CybORG.CybORG import AccountManipulation
-from CybORG.CybORG import OperatingSystemType
-from CybORG.CybORG import Observation
+from CybORG.Shared.Enums import OperatingSystemType
+from CybORG.Shared.Observation import Observation
 
 
 class AddUserLinux(AccountManipulation):

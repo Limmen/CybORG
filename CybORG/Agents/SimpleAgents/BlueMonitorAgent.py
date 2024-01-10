@@ -1,5 +1,5 @@
-from CybORG.CybORG import Monitor
-from CybORG.CybORG import BaseAgent
+from CybORG.Shared.Actions.AbstractActions.Monitor import Monitor
+from CybORG.Agents.SimpleAgents.BaseAgent import BaseAgent
 
 class BlueMonitorAgent(BaseAgent):
     def __init__(self):

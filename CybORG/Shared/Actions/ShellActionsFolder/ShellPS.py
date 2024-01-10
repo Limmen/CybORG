@@ -1,8 +1,8 @@
 # Copyright DST Group. Licensed under the MIT license.
 from CybORG.CybORG import ShellAction
-from CybORG.CybORG import OperatingSystemType, SessionType
-from CybORG.CybORG import Observation
-from CybORG.CybORG import State
+from CybORG.Shared.Enums import OperatingSystemType, SessionType
+from CybORG.Shared.Observation import Observation
+from CybORG.Simulator.State import State
 
 
 # Call 'ps -o user,uid,pid,ppid,command ax' from a shell or msf shell session

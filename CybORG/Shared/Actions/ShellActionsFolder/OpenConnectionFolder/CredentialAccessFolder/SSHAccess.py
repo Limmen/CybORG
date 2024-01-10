@@ -2,8 +2,8 @@
 from ipaddress import IPv4Address
 
 from CybORG.CybORG import CredentialAccess
-from CybORG.CybORG import SessionType, ProcessType
-from CybORG.CybORG import Observation
+from CybORG.Simulator.Session import SessionType, ProcessType
+from CybORG.Shared.Observation import Observation
 
 
 class SSHAccess(CredentialAccess):

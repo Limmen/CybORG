@@ -2,9 +2,9 @@
 import re
 from ipaddress import IPv4Network
 
-from CybORG.CybORG import MeterpreterAction
-from CybORG.CybORG import OperatingSystemType, SessionType
-from CybORG.CybORG import Observation
+from CybORG.Shared.Actions.MSFActionsFolder.MeterpreterActionsFolder.MeterpreterAction import MeterpreterAction
+from CybORG.Shared.Enums import SessionType
+from CybORG.Shared.Observation import Observation
 
 
 class MeterpreterIPConfig(MeterpreterAction):

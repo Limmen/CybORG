@@ -1,13 +1,11 @@
 # Copyright DST Group. Licensed under the MIT license.
 
-from CybORG.CybORG import Action
-from CybORG.CybORG import RewardCalculator
+from CybORG.Shared.Actions.Action import Action
+from CybORG.Shared.RewardCalculator import RewardCalculator
 
 WIN_REWARD = 1
 LOSE_REWARD = -1
-
 REWARD_MAX_DECIMAL_PLACES = 3
-
 REWARD_DIFF_SCALE_FACTOR = 1000
 
 

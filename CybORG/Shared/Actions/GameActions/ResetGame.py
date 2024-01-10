@@ -1,7 +1,6 @@
 # Copyright DST Group. Licensed under the MIT license.
-from CybORG.CybORG import Observation
-
-from .GameAction import GameAction
+from CybORG.Shared.Observation import Observation
+from CybORG.Shared.Actions.GameActions.GameAction import GameAction
 
 
 class ResetGame(GameAction):

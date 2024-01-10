@@ -6,15 +6,16 @@ from copy import deepcopy
 from datetime import datetime
 from typing import List, Union, Optional
 from ipaddress import IPv4Network, IPv4Address
-
-from CybORG import CybORG as CyEnums
+from CybORG.Shared import Enums as CyEnums
 
 BROADCAST_ADDRESS = IPv4Address('0.0.0.0')
 
+
 class Observation:
 
-    def __init__(self, success:bool = None):
-        self.data = {"success": CyEnums.TrinaryEnum.UNKNOWN if success == None else CyEnums.TrinaryEnum.parse_bool(success)}
+    def __init__(self, success: bool = None):
+        self.data = {
+            "success": CyEnums.TrinaryEnum.UNKNOWN if success == None else CyEnums.TrinaryEnum.parse_bool(success)}
         self.raw = ''
 
     def get_dict(self):
@@ -454,7 +455,6 @@ class Observation:
             elif "User Info" not in self.data[hostid]:
                 self.data[hostid]["User Info"] = []
 
-
             new_user = {}
 
             if username is None:
@@ -499,7 +499,6 @@ class Observation:
             if key_path is not None:
                 new_user["Key Path"] = key_path
 
-
             new_group = {}
             if "Groups" not in new_user:
                 new_user["Groups"] = []
@@ -533,7 +532,8 @@ class Observation:
             for user in self.data[hostid]["User Info"]:
                 if "Groups" in user:
                     for group in user["Groups"]:
-                        if ("GID" in group and group["GID"] == gid) or ("Group Name" in group and group["Group Name"] == group_name):
+                        if ("GID" in group and group["GID"] == gid) or (
+                                "Group Name" in group and group["Group Name"] == group_name):
                             group["GID"] = gid
                             group["Group Name"] = group_name
                             builtin_name = CyEnums.BuiltInGroups.parse_string(group_name)

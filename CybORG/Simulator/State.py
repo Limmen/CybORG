@@ -5,14 +5,13 @@ from datetime import datetime, timedelta
 from ipaddress import IPv4Network, IPv4Address
 from math import log2
 from random import sample, choice
-
-from CybORG.CybORG import Scenario
-from CybORG.CybORG import SessionType
-from CybORG.CybORG import Observation
-from CybORG.CybORG import Host
-from CybORG.CybORG import Process
-from CybORG.CybORG import Session
-from CybORG.CybORG import Subnet
+from CybORG.Shared import Scenario
+from CybORG.Shared.Enums import SessionType
+from CybORG.Shared.Observation import Observation
+from CybORG.Simulator.Host import Host
+from CybORG.Simulator.Process import Process
+from CybORG.Simulator.Session import Session
+from CybORG.Simulator.Subnet import Subnet
 
 
 class State:
@@ -21,6 +20,7 @@ class State:
     This class contains all the data for the simulated network, including ips, subnets, hosts and sessions.
     The methods mostly modify the network state, but tend to delegate most of the work to the Host class.
     """
+
     def __init__(self, scenario):
         self.scenario = scenario
         self.subnet_name_to_cidr = None  # contains mapping of subnet names to subnet cidrs
@@ -87,7 +87,8 @@ class State:
                         else:
                             for service_name in info[hostname]['Services']:
                                 if service_name in host.services:
-                                    true_obs.add_process(hostid=hostname, service_name=service_name, pid=host.services[service_name]['process'])
+                                    true_obs.add_process(hostid=hostname, service_name=service_name,
+                                                         pid=host.services[service_name]['process'])
         return true_obs
 
     def reset(self):
@@ -136,7 +137,8 @@ class State:
             host_info = scenario.get_host(hostname)
             self.hosts[hostname] = Host(system_info=host_info['System info'], processes=host_info['Processes'],
                                         users=host_info['User Info'], interfaces=hostname_to_interface[hostname],
-                                        hostname=hostname, info=host_info.get('info'), services=host_info.get('Services'))
+                                        hostname=hostname, info=host_info.get('info'),
+                                        services=host_info.get('Services'))
 
         for agent in scenario.agents:
             agent_info = scenario.get_agent_info(agent)
@@ -176,7 +178,7 @@ class State:
                 host.create_backup()
 
     def add_session(self, host: str, user: str, agent: str, parent: int, process=None, session_type: str = "shell",
-            timeout: int = 0, is_escalate_sandbox: bool = False) -> Session:
+                    timeout: int = 0, is_escalate_sandbox: bool = False) -> Session:
         """Adds a session of a selected type to a dict as a selected user"""
         ident = self.sessions_count[agent]
         if parent in self.sessions[agent]:

@@ -1,11 +1,9 @@
 from random import choice
 
-from CybORG.CybORG import Observation
-from .Monitor import Monitor
-from CybORG.CybORG import Action
-from CybORG.CybORG import Monitor
-from CybORG.CybORG import DensityScout
-from CybORG.CybORG import SigCheck
+from CybORG.Shared.Observation import Observation
+from CybORG.Shared.Actions.Action import Action
+from CybORG.Shared.Actions.ConcreteActions.DensityScout import DensityScout
+from CybORG.Shared.Actions.ConcreteActions.SigCheck import SigCheck
 
 
 class Analyse(Action):
@@ -17,9 +15,9 @@ class Analyse(Action):
 
     def sim_execute(self, state) -> Observation:
         # perform monitor at start of action
-        #monitor = Monitor(session=self.session, agent=self.agent)
-        #obs = monitor.sim_execute(state)
-        
+        # monitor = Monitor(session=self.session, agent=self.agent)
+        # obs = monitor.sim_execute(state)
+
         artefacts = [DensityScout, SigCheck]
         # find relevant session on the chosen host
         sessions = [s for s in state.sessions[self.agent].values() if s.host == self.hostname]
@@ -34,6 +32,6 @@ class Analyse(Action):
             return obs
         else:
             return Observation(False)
+
     def __str__(self):
         return f"{self.__class__.__name__} {self.hostname}"
-    

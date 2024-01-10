@@ -1,7 +1,6 @@
 # Copyright DST Group. Licensed under the MIT license.
-from CybORG.CybORG import Observation
-
-from .GlobalAction import GlobalAction
+from CybORG.Shared.Observation import Observation
+from CybORG.Shared.Actions.GlobalActions.GlobalAction import GlobalAction
 
 
 class ListGames(GlobalAction):

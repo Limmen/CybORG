@@ -1,49 +1,51 @@
 import random
 
-from CybORG.CybORG import BaseAgent
-from CybORG.CybORG import Results
-from CybORG.CybORG import Sleep, GreenPingSweep, GreenPortScan, GreenConnection
+from CybORG.Agents.SimpleAgents.BaseAgent import BaseAgent
+from CybORG.Shared.Actions.Action import Sleep
+from CybORG.Shared.Actions.GreenActions.GreenPingSweep import GreenPingSweep
+from CybORG.Shared.Actions.GreenActions.GreenPortScan import GreenPortScan
+
 
 class GreenAgent(BaseAgent):
     def __init__(self):
         self.action_space = [
-                Sleep,
-                # GreenPingSweep,
-                GreenPortScan,
-                # GreenConnection, 
-                ]
+            Sleep,
+            # GreenPingSweep,
+            GreenPortScan,
+            # GreenConnection,
+        ]
         self.hostnames = [
-                'User0',
-                'User1',
-                'User2',
-                'User3',
-                'User4',
-                'Enterprise0',
-                'Enterprise1',
-                'Enterprise2',
-                ]
+            'User0',
+            'User1',
+            'User2',
+            'User3',
+            'User4',
+            'Enterprise0',
+            'Enterprise1',
+            'Enterprise2',
+        ]
         self.subnets = [
-                'User',
-                'Enterprise',
-                'Operational_A',
-                ]
+            'User',
+            'Enterprise',
+            'Operational_A',
+        ]
 
-    def get_action(self,observation,action_space):
+    def get_action(self, observation, action_space):
         action = random.choice(self.action_space)
         if action == Sleep:
             return Sleep()
         elif action == GreenPingSweep:
             subnet = random.choice(self.subnets)
-            return action(subnet=subnet,session=0,agent='Green')
+            return action(subnet=subnet, session=0, agent='Green')
         else:
             hostname = random.choice(self.hostnames)
-            return action(hostname=hostname,session=0,agent='Green')
+            return action(hostname=hostname, session=0, agent='Green')
 
-    def train(self,results):
+    def train(self, results):
         pass
 
     def end_episode(self):
         pass
 
-    def set_initial_values(self,action_space,observation):
+    def set_initial_values(self, action_space, observation):
         pass

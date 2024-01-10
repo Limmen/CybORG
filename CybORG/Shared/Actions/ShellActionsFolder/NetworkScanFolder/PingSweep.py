@@ -1,6 +1,6 @@
 # Copyright DST Group. Licensed under the MIT license.
 from CybORG.CybORG import NetworkScan
-from CybORG.CybORG import Observation
+from CybORG.Shared.Observation import Observation
 
 
 class PingSweep(NetworkScan):

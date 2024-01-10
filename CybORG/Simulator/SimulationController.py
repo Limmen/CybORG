@@ -1,20 +1,12 @@
 # Copyright DST Group. Licensed under the MIT license.
 import copy
 import inspect
-from ipaddress import IPv4Network
-from math import log2
-from random import sample, choice
 import yaml
-
-from CybORG.CybORG import CybORG
-from CybORG.CybORG import FindFlag, ShellSleep, SambaUsermapScript, UpgradeToMeterpreter, MSFEternalBlue, GetShell, \
-    PingSweep
-from CybORG.CybORG import Action
-from CybORG.CybORG import FileType, TrinaryEnum
-from CybORG.CybORG import EnvironmentController
-from CybORG.CybORG import Observation
-from CybORG.CybORG import Results
-from CybORG.CybORG import State
+from CybORG.main import Main
+from CybORG.Shared.Actions.Action import Action
+from CybORG.Shared.EnvironmentController import EnvironmentController
+from CybORG.Shared.Observation import Observation
+from CybORG.Simulator.State import State
 
 
 class SimulationController(EnvironmentController):
@@ -24,6 +16,7 @@ class SimulationController(EnvironmentController):
     Most methods are either disabled or delegate their functionality to the State attribute.
     The main thing this class currently does is parse the scenario file.
     """
+
     def __init__(self, scenario_filepath: str = None, scenario_mod: dict = None, agents: dict = None, verbose=True):
         self.state = None
         super().__init__(scenario_filepath, scenario_mod=scenario_mod, agents=agents)
@@ -55,7 +48,7 @@ class SimulationController(EnvironmentController):
 
     def _parse_scenario(self, scenario_filepath: str, scenario_mod: dict = None):
         scenario_dict = super()._parse_scenario(scenario_filepath, scenario_mod=scenario_mod)
-        images_file_path = str(inspect.getfile(CybORG))
+        images_file_path = str(inspect.getfile(Main))
         images_file_path = images_file_path[:-10] + '/Shared/Scenarios/images/'
         with open(images_file_path + 'images.yaml') as fIn:
             images_dict = yaml.load(fIn, Loader=yaml.FullLoader)

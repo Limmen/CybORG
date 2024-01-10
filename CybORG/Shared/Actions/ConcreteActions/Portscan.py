@@ -1,10 +1,10 @@
 from ipaddress import IPv4Address
 
-from CybORG.CybORG import Observation
-from CybORG.CybORG import ConcreteAction
-from CybORG.CybORG import lo
-from CybORG.CybORG import Host
-from CybORG.CybORG import State
+from CybORG.Shared.Observation import Observation
+from CybORG.Shared.Actions.ConcreteActions.ConcreteAction import ConcreteAction
+from CybORG.Shared.Actions.MSFActionsFolder.MSFAction import lo
+from CybORG.Simulator.Host import Host
+from CybORG.Simulator.State import State
 
 
 class Portscan(ConcreteAction):

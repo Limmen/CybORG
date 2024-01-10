@@ -1,9 +1,9 @@
 from random import choice
 
-from CybORG.CybORG import Observation
-from CybORG.CybORG import Action
-from CybORG.CybORG import StopService
-from CybORG.CybORG import State
+from CybORG.Shared.Observation import Observation
+from CybORG.Shared.Actions.Action import Action
+from CybORG.Shared.Actions.ConcreteActions.StopService import StopService
+from CybORG.Simulator.State import State
 
 
 class Impact(Action):

@@ -1,7 +1,7 @@
 # Copyright DST Group. Licensed under the MIT license.
 import inspect
 from pprint import pprint
-from CybORG.CybORG import BaseAgent
+from CybORG.Agents.SimpleAgents.BaseAgent import BaseAgent
 
 from ipaddress import IPv4Network
 

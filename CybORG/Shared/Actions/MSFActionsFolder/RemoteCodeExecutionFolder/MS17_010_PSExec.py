@@ -2,14 +2,14 @@
 from ipaddress import IPv4Address
 from time import sleep
 
-from CybORG.CybORG import RemoteCodeExecution
-
+from CybORG.Shared.Actions.MSFActionsFolder.RemoteCodeExecutionFolder.RemoteCodeExecution import RemoteCodeExecution
 # use msf module exploit/windows/smb/ms17_010_eternal_blue, set RHOSTS to target
 # could also change LHOST, LPORT and RPORT (default 139)
 # gives root session
-from CybORG.CybORG import SessionType, ProcessType, ProcessVersion, OperatingSystemType, OperatingSystemPatch
-from CybORG.CybORG import Observation
-from CybORG.CybORG import User
+from CybORG.Simulator.Session import SessionType
+from CybORG.Shared.Enums import OperatingSystemType
+from CybORG.Shared.Observation import Observation
+from CybORG.Simulator.User import User
 
 
 class MS17_010_PSExec(RemoteCodeExecution):
@@ -37,7 +37,8 @@ class MS17_010_PSExec(RemoteCodeExecution):
         if target_subnet is None:
             return obs
         # find shared subnet of the two hosts
-        server_session, server_interface = self.get_local_source_interface(local_session=session, remote_address=self.target, state=state)
+        server_session, server_interface = self.get_local_source_interface(local_session=session,
+                                                                           remote_address=self.target, state=state)
 
         if server_interface is None:
             return obs
@@ -55,21 +56,19 @@ class MS17_010_PSExec(RemoteCodeExecution):
         # obs.add_interface_info(hostid='0', ip_address=server_address)
         # obs.add_interface_info(hostid='1', ip_address=self.target)
 
-
-
         # find out if smb is open
         smb_proc = None
         for proc in target_host.processes:
             for conn in proc.connections:
                 if conn['local_port'] == self.port and 'remote_address' not in conn:
-                # if proc.process_type == ProcessType.SMB:
-                # TODO: In case of SMB that is not the right version, should SMB process be in the obs?
+                    # if proc.process_type == ProcessType.SMB:
+                    # TODO: In case of SMB that is not the right version, should SMB process be in the obs?
                     smb_proc = proc
                     break
 
         # find out if smb is vulnerable (Windows OS + smb version)
         # Note that this exploit should actually work for all versions in the range Samba 3.0.20 - 3.0.25rc3
-        if smb_proc is not None:# and smb_proc.version == ProcessVersion.SMBv1:
+        if smb_proc is not None:  # and smb_proc.version == ProcessVersion.SMBv1:
             obs.add_process(hostid=str(self.target), local_address=self.target, local_port=self.port, status="open",
                             process_type="smb")
             if target_host.os_type == OperatingSystemType.WINDOWS:
@@ -81,7 +80,8 @@ class MS17_010_PSExec(RemoteCodeExecution):
                         root_user = u
 
                 new_session = state.add_session(host=target_host.hostname, agent=self.agent,
-                                                user=root_user.username, session_type="meterpreter", parent=server_session)
+                                                user=root_user.username, session_type="meterpreter",
+                                                parent=server_session)
 
                 local_port = target_host.get_ephemeral_port()
                 new_connection = {"remote_port": local_port,
@@ -105,7 +105,8 @@ class MS17_010_PSExec(RemoteCodeExecution):
                     local_port = None
                 obs.add_process(hostid=str(self.target), local_address=str(self.target), remote_address=server_address,
                                 remote_port=local_port, local_port=44444)
-                obs.add_session_info(hostid=str(self.target), session_id=int(new_session.ident), session_type=new_session.session_type, agent=self.agent)
+                obs.add_session_info(hostid=str(self.target), session_id=int(new_session.ident),
+                                     session_type=new_session.session_type, agent=self.agent)
             else:
                 obs.add_interface_info(ip_address=str(self.target))
 
@@ -117,7 +118,11 @@ class MS17_010_PSExec(RemoteCodeExecution):
         if type(session_handler) is not MSFSessionHandler:
             obs.set_success(False)
             return obs
-        output = session_handler.execute_module(mtype='exploit', mname='windows/smb/ms17_010_psexec', opts={'RHOSTS': str(self.target), 'SMBUser': self.username, 'SMBPass': self.password}, payload_name='windows/x64/meterpreter/bind_tcp', payload_opts={'LPORT': 44444})
+        output = session_handler.execute_module(mtype='exploit', mname='windows/smb/ms17_010_psexec',
+                                                opts={'RHOSTS': str(self.target), 'SMBUser': self.username,
+                                                      'SMBPass': self.password},
+                                                payload_name='windows/x64/meterpreter/bind_tcp',
+                                                payload_opts={'LPORT': 44444})
         obs.add_raw_obs(output)
         obs.set_success(False)
         # session_handler._log_debug(output)
@@ -137,10 +142,10 @@ class MS17_010_PSExec(RemoteCodeExecution):
         for line in output.split(('\n')):
             if 'Overwrite complete' in line:
                 obs.add_process(hostid=str(self.target), local_address=self.target, local_port=self.port, status="open",
-                            process_type="smb")
+                                process_type="smb")
             if '[*] Meterpreter session' in line:
                 obs.set_success(True)
-                #print(list(enumerate(line.split(' '))))
+                # print(list(enumerate(line.split(' '))))
                 split = line.split(' ')
                 session = int(split[3])
                 if '-' in split[5]:
@@ -151,10 +156,13 @@ class MS17_010_PSExec(RemoteCodeExecution):
                 else:
                     rip, rport = split[5].replace('(', '').split(':')
                 lip, lport = split[7].replace(')', '').split(':')
-                obs.add_session_info(hostid=str(self.target), session_id=session, session_type='meterpreter', agent=self.agent)
-                obs.add_process(hostid=str(self.target), local_address=lip, local_port=lport, remote_address=rip, remote_port=rport)
+                obs.add_session_info(hostid=str(self.target), session_id=session, session_type='meterpreter',
+                                     agent=self.agent)
+                obs.add_process(hostid=str(self.target), local_address=lip, local_port=lport, remote_address=rip,
+                                remote_port=rport)
         sleep(5)  # wait for setup of met session
         return obs
 
     def __str__(self):
-        return super(MS17_010_PSExec, self).__str__() + f", Target: {self.target}, Username: {self.username}, Password: {self.password}"
+        return super(MS17_010_PSExec,
+                     self).__str__() + f", Target: {self.target}, Username: {self.username}, Password: {self.password}"

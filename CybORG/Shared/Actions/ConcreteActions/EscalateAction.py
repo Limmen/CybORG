@@ -9,13 +9,13 @@ pertaining to actions that escalate a session on a host, or occur failing that
 from abc import abstractmethod
 from typing import Tuple
 
-from CybORG.CybORG import Observation
-from CybORG.CybORG import ConcreteAction
-from CybORG.CybORG import OperatingSystemType, DecoyType
-from CybORG.CybORG import Host
-from CybORG.CybORG import Process
-from CybORG.CybORG import Session
-from CybORG.CybORG import State
+from CybORG.Shared.Observation import Observation
+from CybORG.Shared.Actions.ConcreteActions.ConcreteAction import ConcreteAction
+from CybORG.Shared.Enums import OperatingSystemType, DecoyType
+from CybORG.Simulator.Host import Host
+from CybORG.Simulator.Process import Process
+from CybORG.Simulator.Session import Session
+from CybORG.Simulator.State import State
 
 class EscalateAction(ConcreteAction):
     """

@@ -1,7 +1,7 @@
 # Copyright DST Group. Licensed under the MIT license.
-from CybORG.CybORG import Observation
-from CybORG.CybORG import CybORGLogger
-from CybORG.CybORG import State
+from CybORG.Shared.Observation import Observation
+from CybORG.Shared.Logger import CybORGLogger
+from CybORG.Simulator.State import State
 
 
 class Action:

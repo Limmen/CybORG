@@ -1,10 +1,9 @@
 # Copyright DST Group. Licensed under the MIT license.
 from ipaddress import IPv4Address
-
-from CybORG.CybORG import MeterpreterAction
-from CybORG.CybORG import OperatingSystemType, SessionType, AppProtocol
-from CybORG.CybORG import Observation
-from CybORG.CybORG import State
+from CybORG.Shared.Actions.MSFActionsFolder.MeterpreterActionsFolder.MeterpreterAction import MeterpreterAction
+from CybORG.Shared.Enums import OperatingSystemType, SessionType, AppProtocol
+from CybORG.Shared.Observation import Observation
+from CybORG.Simulator.State import State
 
 
 # Call shell from a meterpreter session - gives a shell session

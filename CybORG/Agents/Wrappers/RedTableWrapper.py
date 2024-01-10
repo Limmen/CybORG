@@ -1,10 +1,8 @@
 import math
-from copy import deepcopy
 from prettytable import PrettyTable
 import numpy as np
-
-from CybORG.CybORG import BaseWrapper
-from CybORG.CybORG import TrueTableWrapper
+from CybORG.Agents.Wrappers.BaseWrapper import BaseWrapper
+from CybORG.Agents.Wrappers.TrueTableWrapper import TrueTableWrapper
 
 
 class RedTableWrapper(BaseWrapper):

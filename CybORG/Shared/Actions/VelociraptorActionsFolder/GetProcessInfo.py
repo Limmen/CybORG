@@ -1,7 +1,7 @@
 # Copyright DST Group. Licensed under the MIT license.
 
-from CybORG.CybORG import Observation
-from CybORG.CybORG import SessionType
+from CybORG.Shared.Observation import Observation
+from CybORG.Simulator.Session import SessionType
 
 from .VelociraptorArtifactAction import VelociraptorArtifactAction
 

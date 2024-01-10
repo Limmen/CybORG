@@ -1,9 +1,11 @@
 import random
-
-from CybORG.CybORG import BaseAgent
-from CybORG.CybORG import Results
-from CybORG.CybORG import PrivilegeEscalate, ExploitRemoteService, DiscoverRemoteSystems, Impact, \
-    DiscoverNetworkServices
+from CybORG.Agents.SimpleAgents.BaseAgent import BaseAgent
+from CybORG.Shared.Results import Results
+from CybORG.Shared.Actions.AbstractActions.PrivilegeEscalate import PrivilegeEscalate
+from CybORG.Shared.Actions.AbstractActions.ExploitRemoteService import ExploitRemoteService
+from CybORG.Shared.Actions.AbstractActions.DiscoverRemoteSystems import DiscoverRemoteSystems
+from CybORG.Shared.Actions.AbstractActions.Impact import Impact
+from CybORG.Shared.Actions.AbstractActions.DiscoverNetworkServices import DiscoverNetworkServices
 
 
 class RedMeanderAgent(BaseAgent):
@@ -26,7 +28,7 @@ class RedMeanderAgent(BaseAgent):
         self._process_success(observation)
 
         session = list(action_space['session'].keys())[0]
-        
+
         # Always impact if able
         if 'Op_Server0' in self.escalated_hosts:
             self.last_host = 'Op_Server0'
@@ -75,8 +77,6 @@ class RedMeanderAgent(BaseAgent):
             return ExploitRemoteService(ip_address=address, agent='Red', session=session)
 
         raise NotImplementedError('Red Meander has run out of options!')
-
-
 
     def _process_success(self, observation):
         if self.last_ip is not None:

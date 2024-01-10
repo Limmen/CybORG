@@ -1,5 +1,9 @@
 from gym import Env
-from CybORG.CybORG import BaseWrapper, OpenAIGymWrapper, BlueTableWrapper,RedTableWrapper,EnumActionWrapper
+from CybORG.Agents.Wrappers.BaseWrapper import BaseWrapper
+from CybORG.Agents.Wrappers.OpenAIGymWrapper import OpenAIGymWrapper
+from CybORG.Agents.Wrappers.BlueTableWrapper import BlueTableWrapper
+from CybORG.Agents.Wrappers.RedTableWrapper import RedTableWrapper
+from CybORG.Agents.Wrappers.EnumActionWrapper import EnumActionWrapper
 
 
 class ChallengeWrapper(Env,BaseWrapper):

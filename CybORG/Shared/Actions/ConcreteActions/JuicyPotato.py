@@ -7,12 +7,12 @@ pertaining to the Juicy Potato permissions escalation action
 # pylint: disable=invalid-name
 from typing import Tuple
 
-from CybORG.CybORG import Observation
-from CybORG.CybORG import EscalateAction
-from CybORG.CybORG import OperatingSystemType
-from CybORG.CybORG import Host
-from CybORG.CybORG import Process
-from CybORG.CybORG import State
+from CybORG.Shared.Observation import Observation
+from CybORG.Shared.Actions.ConcreteActions.EscalateAction import EscalateAction
+from CybORG.Shared.Enums import OperatingSystemType
+from CybORG.Simulator.Host import Host
+from CybORG.Simulator.Process import Process
+from CybORG.Simulator.State import State
 
 
 class JuicyPotato(EscalateAction):

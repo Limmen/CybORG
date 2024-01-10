@@ -1,7 +1,6 @@
 # Copyright DST Group. Licensed under the MIT license.
-from CybORG.CybORG import Observation
-
-from .AgentAction import AgentAction
+from CybORG.Shared.Observation import Observation
+from CybORG.Shared.Actions.AgentActions.AgentAction import AgentAction
 
 
 class ListSessions(AgentAction):

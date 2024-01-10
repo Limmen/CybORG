@@ -1,8 +1,8 @@
 # Copyright DST Group. Licensed under the MIT license.
 from CybORG.CybORG import Persistence
-from CybORG.CybORG import State
-from CybORG.CybORG import OperatingSystemType
-from CybORG.CybORG import Observation
+from CybORG.Simulator.State import State
+from CybORG.Shared.Enums import OperatingSystemType
+from CybORG.Shared.Observation import Observation
 
 class Schtasks(Persistence):
     def __init__(self, session, agent, frequency, ip_address):

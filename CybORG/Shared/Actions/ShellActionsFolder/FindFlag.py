@@ -1,7 +1,7 @@
 # Copyright DST Group. Licensed under the MIT license.
 from CybORG.CybORG import ShellAction
 from CybORG.CybORG import FileType
-from CybORG.CybORG import Observation
+from CybORG.Shared.Observation import Observation
 
 
 class FindFlag(ShellAction):

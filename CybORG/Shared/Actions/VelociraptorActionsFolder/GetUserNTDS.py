@@ -1,7 +1,7 @@
 # Copyright DST Group. Licensed under the MIT license.
 
 from CybORG.CybORG import QueryType
-from CybORG.CybORG import Observation
+from CybORG.Shared.Observation import Observation
 
 from .VelociraptorAction import VelociraptorAction
 

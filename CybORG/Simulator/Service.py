@@ -1,5 +1,5 @@
 # Copyright DST Group. Licensed under the MIT license.
-from CybORG.CybORG import Entity
+from CybORG.Simulator import Entity
 import enum
 
 

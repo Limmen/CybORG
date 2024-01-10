@@ -1,6 +1,6 @@
 # Copyright DST Group. Licensed under the MIT license.
-from CybORG.CybORG import BaseAgent
-from CybORG.CybORG import Sleep
+from CybORG.Agents.SimpleAgents.BaseAgent import BaseAgent
+from CybORG.Shared.Actions.Action import Sleep
 
 
 class SleepAgent(BaseAgent):

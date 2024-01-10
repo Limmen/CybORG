@@ -27,10 +27,10 @@ from CybORG.CybORG import \
 # can run > python -c 'import pty; pty.spawn("/bin/bash")' # gives TTY session
 # Note if the netcat listener is run but no connection is made, the netcat listener should then be closed to end action
 from CybORG.CybORG import FileType, AppProtocol
-from CybORG.CybORG import Observation
+from CybORG.Shared.Observation import Observation
 from CybORG.CybORG import File
-from CybORG.CybORG import Host
-from CybORG.CybORG import State
+from CybORG.Simulator.Host import Host
+from CybORG.Simulator.State import State
 
 
 class LinuxKernelPrivilegeEscalation(ShellPrivilegeEscalation):

@@ -21,8 +21,8 @@ from CybORG.CybORG import ShellPrivilegeEscalation
 # Now prompted for password, enter "password"
 # gives a root privileged session as user firefart (which has replaced root user in /etc/passwd file)
 from CybORG.CybORG import FileType
-from CybORG.CybORG import Observation
-from CybORG.CybORG import State
+from CybORG.Shared.Observation import Observation
+from CybORG.Simulator.State import State
 
 
 class DirtyCowPrivilegeEscalation(ShellPrivilegeEscalation):

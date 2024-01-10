@@ -1,7 +1,7 @@
 # Copyright DST Group. Licensed under the MIT license.
 import yaml
 import pprint
-from typing import Union, List
+from typing import List
 
 
 class ScenarioSession:

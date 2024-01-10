@@ -1,13 +1,12 @@
 # Copyright DST Group. Licensed under the MIT license.
 from ipaddress import IPv4Address, IPv4Network
 
-from CybORG.CybORG import SessionAction
-from CybORG.CybORG import Host
-from CybORG.CybORG import Interface
-from CybORG.CybORG import MSFServerSession
-from CybORG.CybORG import Session
-from CybORG.CybORG import State
-from CybORG.CybORG import Subnet
+from CybORG.Shared.Actions.SessionAction import SessionAction
+from CybORG.Simulator.Interface import Interface
+from CybORG.Simulator.MSFServerSession import MSFServerSession
+from CybORG.Simulator.Session import Session
+from CybORG.Simulator.State import State
+from CybORG.Simulator.Subnet import Subnet
 
 lo_subnet = IPv4Network('127.0.0.0/8')
 lo = IPv4Address('127.0.0.1')

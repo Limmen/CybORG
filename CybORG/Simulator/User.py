@@ -1,11 +1,7 @@
 # Copyright DST Group. Licensed under the MIT license.
-import copy
-import random
-import string
-
-from CybORG.CybORG import PasswordHashType
-from CybORG.CybORG import Entity
-from CybORG.CybORG import LocalGroup
+from CybORG.Shared.Enums import PasswordHashType
+from CybORG.Simulator.Entity import Entity
+from CybORG.Simulator.LocalGroup import LocalGroup
 
 
 class User(Entity):

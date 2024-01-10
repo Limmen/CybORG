@@ -2,9 +2,9 @@
 from ipaddress import IPv4Address
 
 from CybORG.CybORG import OpenConnection
-from CybORG.CybORG import ProcessType
-from CybORG.CybORG import Observation
-from CybORG.CybORG import State
+from CybORG.Simulator.Process import ProcessType
+from CybORG.Shared.Observation import Observation
+from CybORG.Simulator.State import State
 
 
 # smbclient -L //target -N

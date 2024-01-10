@@ -1,33 +1,32 @@
 from random import choice
-from typing import Tuple, List, Optional
-from abc import ABC, abstractmethod
-from dataclasses import dataclass
+from CybORG.Shared.Observation import Observation
+from CybORG.Shared.Actions.Action import Action
+from CybORG.Shared.Enums import DecoyType
+from CybORG.Simulator.Host import Host
+from CybORG.Simulator.Session import Session
+from CybORG.Simulator.State import State
+from CybORG.Shared.Enums import OperatingSystemType
+from CybORG.Shared.Actions.AbstractActions.Misinform import Decoy, DecoyFactory, _is_host_using_port
 
-from CybORG.CybORG import Observation
-from CybORG.CybORG import Action
-from CybORG.CybORG import DecoyType, ProcessType
-from CybORG.CybORG import Host
-from CybORG.CybORG import Session
-from CybORG.CybORG import State
-from CybORG.CybORG import OperatingSystemType
-from CybORG.CybORG import Decoy, DecoyFactory, _is_host_using_port
 
 class FemitterDecoyFactory(DecoyFactory):
     """
     Assembles process information to appear as an apache server
     """
+
     def make_decoy(self, host: Host) -> Decoy:
         del host
         return Decoy(service_name="femitter", name="femitter",
-                open_ports=[{'local_port':21, 'local_address':'0.0.0.0'}],
-                process_type='femitter', 
-                process_path="/usr/sbin")
+                     open_ports=[{'local_port': 21, 'local_address': '0.0.0.0'}],
+                     process_type='femitter',
+                     process_path="/usr/sbin")
 
     def is_host_compatible(self, host: Host) -> bool:
         has_port = not _is_host_using_port(host, 21)
         is_windows = host.os_type == OperatingSystemType.WINDOWS
 
         return has_port and is_windows
+
 
 femitter_decoy_factory = FemitterDecoyFactory()
 
@@ -37,6 +36,7 @@ class DecoyFemitter(Action):
     Creates a misleading process on the designated host depending on
     available and compatible options.
     """
+
     def __init__(self, *, session: int, agent: str, hostname: str):
         self.agent = agent
         self.session = session
@@ -52,7 +52,7 @@ class DecoyFemitter(Action):
         obs_succeed = Observation(True)
 
         sessions = [s for s in state.sessions[self.agent].values() if
-                s.host == self.hostname]
+                    s.host == self.hostname]
         if len(sessions) == 0:
             return obs_fail
 
@@ -63,14 +63,13 @@ class DecoyFemitter(Action):
             decoy_factory = self.__select_one_factory(host)
             decoy = decoy_factory.make_decoy(host)
             self.__create_process(obs_succeed, session, host, decoy)
-            #print ("Misinform Success. Result: {}".format(result))
+            # print ("Misinform Success. Result: {}".format(result))
 
             return obs_succeed
 
         except RuntimeError:
-            #print ("Misinform FAILURE")
+            # print ("Misinform FAILURE")
             return obs_fail
-
 
     def __select_one_factory(self, host: Host) -> DecoyFactory:
         """
@@ -79,7 +78,7 @@ class DecoyFemitter(Action):
         """
 
         compatible_factories = [factory for factory in self.candidate_decoys
-                if factory.is_host_compatible(host) ]
+                                if factory.is_host_compatible(host)]
 
         if len(compatible_factories) == 0:
             raise RuntimeError("No compatible factory")
@@ -87,7 +86,7 @@ class DecoyFemitter(Action):
         return choice(list(compatible_factories))
 
     def __create_process(self, obs: Observation, sess: Session, host: Host,
-            decoy: Decoy) -> None:
+                         decoy: Decoy) -> None:
         """
         Creates a process & service from Decoy on current host, adds it
         to the observation.
@@ -105,17 +104,17 @@ class DecoyFemitter(Action):
         service_name = decoy.service_name
 
         new_proc = host.add_process(name=process_name, ppid=parent_pid,
-                user=username, version=version, process_type=process_type,
-                open_ports=open_ports, decoy_type=self.decoy_type,
-                properties=process_props)
+                                    user=username, version=version, process_type=process_type,
+                                    open_ports=open_ports, decoy_type=self.decoy_type,
+                                    properties=process_props)
 
         host.add_service(service_name=service_name, process=new_proc.pid,
-                session=sess)
+                         session=sess)
 
         obs.add_process(hostid=self.hostname, pid=new_proc.pid,
-                parent_pid=parent_pid, name=process_name,
-                username=username, service_name=service_name,
-                properties=process_props)
+                        parent_pid=parent_pid, name=process_name,
+                        username=username, service_name=service_name,
+                        properties=process_props)
 
     def __str__(self):
         return f"{self.__class__.__name__} {self.hostname}"

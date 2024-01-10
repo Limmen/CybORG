@@ -2,12 +2,10 @@
 import string
 from ipaddress import IPv4Address
 import random
-
-from CybORG.CybORG import MSFAction, lo
-
-# Upgrade a MSF_SHELL session to a METERPRETER session
-from CybORG.CybORG import SessionType, AppProtocol
-from CybORG.CybORG import Observation
+from CybORG.Shared.Actions.MSFActionsFolder.MSFAction import MSFAction, lo
+from CybORG.Simulator.Session import SessionType
+from CybORG.Shared.Enums import AppProtocol
+from CybORG.Shared.Observation import Observation
 
 
 class UpgradeToMeterpreter(MSFAction):

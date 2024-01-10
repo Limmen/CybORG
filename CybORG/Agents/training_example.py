@@ -1,22 +1,20 @@
-
-from CybORG.CybORG import CybORG
+from CybORG.main import Main
 import inspect
-
-from CybORG.CybORG import TestAgent
-from CybORG.CybORG import FixedFlatWrapper
-from CybORG.CybORG import IntListToActionWrapper
-from CybORG.CybORG import OpenAIGymWrapper
+from CybORG.Agents.SimpleAgents.TestAgent import TestAgent
+from CybORG.Agents.Wrappers.FixedFlatWrapper import FixedFlatWrapper
+from CybORG.Agents.Wrappers.IntListToAction import IntListToActionWrapper
+from CybORG.Agents.Wrappers.OpenAIGymWrapper import OpenAIGymWrapper
 
 MAX_STEPS_PER_GAME = 20
 MAX_EPS = 100
 
 def run_training_example(scenario):
     print("Setup")
-    path = str(inspect.getfile(CybORG))
+    path = str(inspect.getfile(Main))
     path = path[:-10] + f'/Shared/Scenarios/{scenario}.yaml'
 
     agent_name = 'Red'
-    cyborg = OpenAIGymWrapper(agent_name=agent_name, env=IntListToActionWrapper(FixedFlatWrapper(CybORG(path, 'sim'))))
+    cyborg = OpenAIGymWrapper(agent_name=agent_name, env=IntListToActionWrapper(FixedFlatWrapper(Main(path, 'sim'))))
 
     observation = cyborg.reset(agent=agent_name)
     action_space = cyborg.get_action_space(agent_name)

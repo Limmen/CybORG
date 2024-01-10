@@ -1,8 +1,8 @@
 from ipaddress import IPv4Network
 
-from CybORG.CybORG import Observation
-from CybORG.CybORG import Action
-from CybORG.CybORG import Pingsweep
+from CybORG.Shared.Observation import Observation
+from CybORG.Shared.Actions.Action import Action
+from CybORG.Shared.Actions.ShellActionsFolder.NetworkScanFolder.PingSweep import PingSweep
 
 
 class GreenPingSweep(Action):
@@ -16,7 +16,7 @@ class GreenPingSweep(Action):
         # find session inside or close to the target subnet
         session = self.session
         # run pingsweep on the target subnet from selected session
-        sub_action = Pingsweep(session=self.session, agent=self.agent, subnet=self.subnet, target_session=session)
+        sub_action = PingSweep(session=self.session, agent=self.agent, subnet=self.subnet)
         obs = sub_action.sim_execute(state)
         return obs
 

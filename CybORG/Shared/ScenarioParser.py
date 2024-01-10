@@ -8,10 +8,6 @@ import yaml
 from copy import deepcopy
 from prettytable import PrettyTable
 
-from CybORG.CybORG import AccessLevel, Credentials
-from CybORG.CybORG import Service, ServiceType
-from CybORG.CybORG import OperatingSystemType, OperatingSystemInformation
-
 path = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.join(os.path.dirname(path), os.pardir)
 
@@ -37,6 +33,7 @@ RED_ACTION_OPT = {
 
 INT_host_list = ["IPs", "Subnets", "Creds", "OS_info", "Services", "Flag"]
 INT_subnet_list = ["CIDR"]
+
 
 # TODO parse simplicity of password
 
@@ -73,7 +70,7 @@ def parse_scenario_file(scenario_file_path):
 
     avail_actions = load_yaml(AVAIL_ACTIONS_PATH)
     avail_images_yaml = load_yaml(AVAIL_IMAGES_PATH)
-    avail_images = parse_images(avail_images_yaml)
+    avail_images = {}
 
     scn_name = get_scenario_name(scenario_file_path)
     parsed_subnets = parse_subnets(scenario["Subnets"])
@@ -122,57 +119,6 @@ def get_scenario_name(scenario_file_path):
         str scenario_name : name of scenario
     """
     return os.path.basename(scenario_file_path).replace('.yaml', '')
-
-
-def parse_images(images):
-    """
-    Parses list of available images into Image objects.
-
-    Arguments:
-        images : dictionary of images
-
-    Returns:
-        parsed_images : dictionary of parsed images
-    """
-    parsed_images = {}
-    for image_name, image_info in images.items():
-        name = image_info["Name"]
-        image_id = image_info["Image_ID"]
-
-        os_data = image_info["OS"]
-        os_type = OperatingSystemType.parse_string(os_data["Type"])
-        os_dist = os_data["Distribution"]
-        os_version = os_data["Version"]
-        os_info = OperatingSystemInformation(os_type, os_dist, os_version)
-
-        services = []
-        for service_name, service_info in image_info["Services"].items():
-            service_type = ServiceType.parse_string(service_name)
-            port = service_info["port"]
-            state = service_info.get("state", "open")
-            version = service_info.get("version", "")
-            services.append(Service(service_type, port, state, version))
-
-        credentials = []
-        for uname, access_info in image_info["Credentials"].items():
-            access_level = AccessLevel.parseString(access_info["Access"])
-            password = access_info.get("Password")
-            key_path = access_info.get("Key")
-            simplicity = access_info.get("Simplicity")
-            creds = Credentials(username=uname, password=password, key_path=key_path,
-                                access_level=access_level, simplicity=simplicity)
-            credentials.append(creds)
-
-        # Process AWS Instance type if there is one
-        inst_type = image_info.get("AWS_Instance_Type", None)
-
-        # Whether an SSH key is required for access to image, False by default
-        key_access = image_info.get("Key_Access", False)
-
-        image = Image(name, services, image_id, os_info, credentials, inst_type, key_access)
-        parsed_images[image_name] = image
-
-    return parsed_images
 
 
 def parse_subnets(subnets):
@@ -439,6 +385,7 @@ def parse_OSINT_dict(OSINT_dict, avail_hosts, avail_subnets):
                 raise ValueError("OSINT: Subnet {} specified by OSINT not found in scenario".format(subnet))
     return parsed_OSINT
 
+
 if __name__ == "__main__":
     import argparse
 
@@ -461,13 +408,13 @@ if __name__ == "__main__":
             print(f"\n{table}\n")
             print("-" * 80 + "\n")
         elif k == "Hosts":
-            print("\n{}\nHosts:\n".format("-"*80))
+            print("\n{}\nHosts:\n".format("-" * 80))
             for name, vals in v.items():
                 print(f"Name: {name}")
                 for prop, prop_val in vals.items():
                     print(f"\t{prop}: {prop_val}")
                 print("\n")
-            print("-"*80 + "\n")
+            print("-" * 80 + "\n")
             continue
         elif k == "Name":
             print(v)

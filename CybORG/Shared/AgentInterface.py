@@ -1,25 +1,23 @@
 # Copyright DST Group. Licensed under the MIT license.
-
 import sys
-
-from CybORG.CybORG import Scenario
-from CybORG.CybORG import ActionSpace
-from CybORG.CybORG import Action
-from CybORG.CybORG import BaselineRewardCalculator
-from CybORG.CybORG import HybridAvailabilityConfidentialityRewardCalculator
-from CybORG.CybORG import Observation
-from CybORG.CybORG import DistruptRewardCalculator, PwnRewardCalculator, \
-    HybridImpactPwnRewardCalculator
-from CybORG.CybORG import Results
-from CybORG.CybORG import RewardCalculator, EmptyRewardCalculator
+from CybORG.Shared.ActionSpace import ActionSpace
+from CybORG.Shared.Actions.Action import Action
+from CybORG.Shared.BaselineRewardCalculator import BaselineRewardCalculator
+from CybORG.Shared.BlueRewardCalculator import HybridAvailabilityConfidentialityRewardCalculator
+from CybORG.Shared.Observation import Observation
+from CybORG.Shared.RedRewardCalculator import (DistruptRewardCalculator, PwnRewardCalculator,
+                                               HybridImpactPwnRewardCalculator)
+from CybORG.Shared.Results import Results
+from CybORG.Shared.RewardCalculator import RewardCalculator
+from CybORG.Shared.RewardCalculator import EmptyRewardCalculator
 
 MAX_HOSTS = 5
-MAX_PROCESSES = 100    # 50
+MAX_PROCESSES = 100  # 50
 MAX_CONNECTIONS = 10
 MAX_VULNERABILITIES = 1
 MAX_INTERFACES = 4
 MAX_FILES = 10
-MAX_SESSIONS = 10    # 80
+MAX_SESSIONS = 10  # 80
 MAX_USERS = 10
 MAX_GROUPS = 10
 MAX_PATCHES = 10

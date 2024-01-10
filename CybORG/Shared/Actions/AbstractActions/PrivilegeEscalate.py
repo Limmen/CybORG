@@ -4,22 +4,19 @@
 """
 Handling of privilege escalation action selection and execution
 """
-#pylint: disable=invalid-name
+# pylint: disable=invalid-name
 from random import choice
 from abc import ABC, abstractmethod
 from typing import Tuple, Optional, List
+from CybORG.Shared.Observation import Observation
+from CybORG.Shared.Actions.Action import Action
+from CybORG.Shared.Actions.ConcreteActions.EscalateAction import ExploreHost, EscalateAction
+from CybORG.Shared.Actions.ConcreteActions.JuicyPotato import JuicyPotato
+from CybORG.Shared.Actions.ConcreteActions.V4L2KernelExploit import V4L2KernelExploit
+from CybORG.Shared.Enums import OperatingSystemType, TrinaryEnum
+from CybORG.Simulator.State import State
+from CybORG.Simulator.Session import Session
 
-from CybORG.CybORG import Observation
-from CybORG.CybORG import Action
-from CybORG.CybORG import (
-        ExploreHost, EscalateAction
-        )
-from CybORG.CybORG import JuicyPotato
-from CybORG.CybORG import V4L2KernelExploit
-from CybORG.CybORG import (
-        OperatingSystemType, TrinaryEnum)
-from CybORG.CybORG import State
-from CybORG.CybORG import Session
 
 # pylint: disable=too-few-public-methods
 class EscalateActionSelector(ABC):
@@ -27,31 +24,37 @@ class EscalateActionSelector(ABC):
     Examines the target host and returns a selected applicable escalate action
     if any, as well as processes that are required to be genuine
     """
+
     # pylint: disable=missing-function-docstring
     @abstractmethod
     def get_escalate_action(self, *, state: State, session: int, target_session: int,
-            agent: str, hostname: str) -> \
-                    Optional[EscalateAction]:
+                            agent: str, hostname: str) -> \
+            Optional[EscalateAction]:
         pass
+
 
 class DefaultEscalateActionSelector(EscalateActionSelector):
     """
     Attempts to use Juicy Potato if windows, otherwise V4l2 kernel
     """
+
     def get_escalate_action(self, *, state: State, session: int, target_session: int,
-            agent: str, hostname: str) -> \
-                    Optional[EscalateAction]:
+                            agent: str, hostname: str) -> \
+            Optional[EscalateAction]:
         if state.sessions[agent][session].operating_system[hostname] == OperatingSystemType.WINDOWS:
             return JuicyPotato(session=session, target_session=target_session,
-                    agent=agent)
+                               agent=agent)
 
         return V4L2KernelExploit(session=session, target_session=target_session,
-                agent=agent)
+                                 agent=agent)
+
+
 _default_escalate_action_selector = DefaultEscalateActionSelector()
 
 
 class PrivilegeEscalate(Action):
     """Selects and executes a privilege escalation action on a host"""
+
     def __init__(self, session: int, agent: str, hostname: str):
         super().__init__()
         self.agent = agent
@@ -62,12 +65,12 @@ class PrivilegeEscalate(Action):
     def emu_execute(self) -> Observation:
         raise NotImplementedError
 
-    def __perform_escalate(self, state:State, sessions:List[Session]) -> Tuple[Observation, int]:
+    def __perform_escalate(self, state: State, sessions: List[Session]) -> Tuple[Observation, int]:
         target_session = choice(sessions)
 
-        #print(f"""
-        #Host {self.hostname} attempting escalate:
-        #Session {target_session.__dict__}""")
+        # print(f"""
+        # Host {self.hostname} attempting escalate:
+        # Session {target_session.__dict__}""")
 
         # test if session is in a sandbox
         if target_session.is_escalate_sandbox:
@@ -77,8 +80,8 @@ class PrivilegeEscalate(Action):
         target_session_ident = target_session.ident
 
         sub_action = self.escalate_action_selector.get_escalate_action(
-                state=state, session=self.session, target_session=target_session_ident,
-                agent=self.agent, hostname=self.hostname)
+            state=state, session=self.session, target_session=target_session_ident,
+            agent=self.agent, hostname=self.hostname)
 
         if sub_action is None:
             return Observation(success=False), -1
@@ -109,7 +112,7 @@ class PrivilegeEscalate(Action):
             return obs
 
         sub_action = ExploreHost(session=self.session, target_session=target_session,
-                agent=self.agent)
+                                 agent=self.agent)
         obs2 = sub_action.sim_execute(state)
         for host in obs2.data.values():
             try:

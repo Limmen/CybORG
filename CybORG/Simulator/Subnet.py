@@ -1,5 +1,5 @@
 # Copyright DST Group. Licensed under the MIT license.
-from CybORG.CybORG import Entity
+from CybORG.Simulator.Entity import Entity
 from ipaddress import IPv4Network
 
 
@@ -11,7 +11,7 @@ class Subnet(Entity):
         self.nacls = nacls
         self.name = name
 
-    def get_state(self): #TODO
+    def get_state(self):  # TODO
         pass
 
     def contains_ip_address(self, ip_address: str) -> bool:

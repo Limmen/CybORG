@@ -1,10 +1,10 @@
 # Copyright DST Group. Licensed under the MIT license.
 from ipaddress import IPv4Address
 
-from CybORG.CybORG import MSFScanner
-from CybORG.CybORG import InterfaceType, SessionType, ProcessType, ProcessVersion, AppProtocol
-from CybORG.CybORG import Observation
-from CybORG.CybORG import State
+from CybORG.Shared.Actions.MSFActionsFolder.MSFScannerFolder.MSFScanner import MSFScanner
+from CybORG.Shared.Enums import SessionType, ProcessType, ProcessVersion, AppProtocol
+from CybORG.Shared.Observation import Observation
+from CybORG.Simulator.State import State
 
 
 # msf module is auxiliary/scanner/http/tomcat_mgr_login - then set RHOSTS and RPORT
@@ -45,7 +45,9 @@ class TomcatCredentialScanner(MSFScanner):
         for process in target_host.processes:
             for conn in process.connections:
                 if self.target_port == conn['local_port']:
-                    if conn['local_address'] == IPv4Address("0.0.0.0") or (conn['local_address'] == IPv4Address("127.0.0.1") and self.target == IPv4Address("127.0.0.1")) or conn['local_address'] == self.target:
+                    if conn['local_address'] == IPv4Address("0.0.0.0") or (
+                            conn['local_address'] == IPv4Address("127.0.0.1") and self.target == IPv4Address(
+                            "127.0.0.1")) or conn['local_address'] == self.target:
                         target_proc = process
                     break
 
@@ -59,14 +61,18 @@ class TomcatCredentialScanner(MSFScanner):
                         if conn["local_port"] == self.target_port:
                             if conn['Application Protocol'] == AppProtocol.HTTP:
                                 obs.set_success(True)
-                                obs.add_process(hostid="hostid0", local_address=self.target, local_port=self.target_port,
+                                obs.add_process(hostid="hostid0", local_address=self.target,
+                                                local_port=self.target_port,
                                                 app_protocol="TCP", process_type=target_proc.process_type,
                                                 process_version=target_proc.version, status="open")
-                                obs.add_user_info(hostid="hostid0", username="tomcat", password="tomcat", group_name="web server users")
+                                obs.add_user_info(hostid="hostid0", username="tomcat", password="tomcat",
+                                                  group_name="web server users")
                             else:
                                 obs.set_success(False)
-                                obs.add_process(hostid="hostid0", local_address=self.target, local_port=self.target_port,
-                                                app_protocol="TCP", process_type=target_proc.process_type, status="open")
+                                obs.add_process(hostid="hostid0", local_address=self.target,
+                                                local_port=self.target_port,
+                                                app_protocol="TCP", process_type=target_proc.process_type,
+                                                status="open")
                 else:
                     obs.set_success(False)
                     obs.add_process(hostid="hostid0", local_address=self.target, local_port=self.target_port,
@@ -82,8 +88,8 @@ class TomcatCredentialScanner(MSFScanner):
             obs.set_success(False)
             return obs
         output = session_handler.execute_module(mtype='auxiliary', mname='scanner/http/tomcat_mgr_login',
-                                         opts={'RHOSTS': str(self.target),
-                                               'RPORT': self.target_port})
+                                                opts={'RHOSTS': str(self.target),
+                                                      'RPORT': self.target_port})
         obs.add_raw_obs(output)
         obs.set_success(False)
         return obs

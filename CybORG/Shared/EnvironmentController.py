@@ -3,15 +3,12 @@
 
 import sys
 import yaml
-
-from CybORG.CybORG import Scenario
-from CybORG.CybORG import Sleep, InvalidAction
-from CybORG.CybORG import FileType, OperatingSystemType
-from CybORG.CybORG import Results
-from CybORG.CybORG import Observation
-from CybORG.CybORG import Action, FindFlag, Monitor
-from CybORG.CybORG import AgentInterface
-from CybORG import CybORG
+from CybORG.Shared.Scenario import Scenario
+from CybORG.Shared.Actions.Action import Action, InvalidAction
+from CybORG.Shared.Results import Results
+from CybORG.Shared.Observation import Observation
+from CybORG.Shared.Actions.AbstractActions.Monitor import Monitor
+from CybORG.Shared.AgentInterface import AgentInterface
 
 
 class EnvironmentController:
@@ -55,8 +52,9 @@ class EnvironmentController:
         self.observation = {}
         self.INFO_DICT['True'] = {}
         for host in self.scenario.hosts:
-            self.INFO_DICT['True'][host] = {'System info': 'All', 'Sessions': 'All', 'Interfaces': 'All', 'User info': 'All',
-                                      'Processes': ['All']}
+            self.INFO_DICT['True'][host] = {'System info': 'All', 'Sessions': 'All', 'Interfaces': 'All',
+                                            'User info': 'All',
+                                            'Processes': ['All']}
         self.init_state = self._filter_obs(self.get_true_state(self.INFO_DICT['True'])).data
         for agent in self.scenario.agents:
             self.INFO_DICT[agent] = self.scenario.get_agent_info(agent).osint.get('Hosts', {})
@@ -123,7 +121,6 @@ class EnvironmentController:
             else:
                 agent_action = action
             if not self.test_valid_action(agent_action, agent_object) and not skip_valid_action_check:
-
                 agent_action = InvalidAction(agent_action)
             self.action[agent_name] = agent_action
 
@@ -172,7 +169,8 @@ class EnvironmentController:
         if agent is None:
             result = Results(observation=true_observation, done=self.done)
         else:
-            result = Results(observation=self.observation[agent].data, done=self.done, reward=round(self.reward[agent], 1),
+            result = Results(observation=self.observation[agent].data, done=self.done,
+                             reward=round(self.reward[agent], 1),
                              action_space=self.agent_interfaces[agent].action_space.get_action_space(),
                              action=self.action[agent])
         return result
@@ -302,8 +300,6 @@ class EnvironmentController:
                 """
         return self.action[agent] if agent in self.action else None
 
-
-
     def restore(self, filepath: str):
         """Restores the environment from file
 
@@ -403,11 +399,5 @@ class EnvironmentController:
                 return False
         return True
 
-    def get_reward_breakdown(self, agent:str):
+    def get_reward_breakdown(self, agent: str):
         return self.agent_interfaces[agent].reward_calculator.host_scores
-
-        
-
-
-
-

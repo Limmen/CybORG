@@ -1,12 +1,13 @@
 # Copyright DST Group. Licensed under the MIT license.
 from ipaddress import IPv4Address
-from CybORG.CybORG import RemoteCodeExecution
+from CybORG.Shared.Actions.MSFActionsFolder.RemoteCodeExecutionFolder.RemoteCodeExecution import RemoteCodeExecution
 
 # use msf module exploit/multi/samba/usermap_script, set RHOSTS to target
 # could also change LHOST, LPORT and RPORT (default 139)
 # gives root session
-from CybORG.CybORG import SessionType, ProcessType, ProcessVersion
-from CybORG.CybORG import Observation
+from CybORG.Simulator.Session import SessionType
+from CybORG.Shared.Enums import ProcessType, ProcessVersion
+from CybORG.Shared.Observation import Observation
 
 
 class SambaUsermapScript(RemoteCodeExecution):

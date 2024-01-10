@@ -3,10 +3,10 @@ import copy
 
 from CybORG.CybORG import ShellAction
 from CybORG.CybORG import FileType, SessionType, FileVersion, OperatingSystemType
-from CybORG.CybORG import Observation
+from CybORG.Shared.Observation import Observation
 from CybORG.CybORG import File
-from CybORG.CybORG import Session
-from CybORG.CybORG import State
+from CybORG.Simulator.Session import Session
+from CybORG.Simulator.State import State
 
 
 class ShellPrivilegeEscalation(ShellAction):

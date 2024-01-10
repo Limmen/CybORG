@@ -1,12 +1,13 @@
 # Copyright DST Group. Licensed under the MIT license.
 from ipaddress import IPv4Address
-from CybORG.CybORG import RemoteCodeExecution
+from CybORG.Shared.Actions.MSFActionsFolder.RemoteCodeExecutionFolder.RemoteCodeExecution import RemoteCodeExecution
 
 # use msf module exploit/windows/smb/ms17_010_eternal_blue, set RHOSTS to target
 # could also change LHOST, LPORT and RPORT (default 139)
 # gives root session
-from CybORG.CybORG import SessionType, ProcessType, ProcessVersion, OperatingSystemType, OperatingSystemPatch
-from CybORG.CybORG import Observation
+from CybORG.Simulator.Session import SessionType
+from CybORG.Shared.Enums import OperatingSystemType, ProcessType, ProcessVersion, OperatingSystemPatch
+from CybORG.Shared.Observation import Observation
 
 
 class MSFEternalBlue(RemoteCodeExecution):

@@ -1,10 +1,9 @@
 # Copyright DST Group. Licensed under the MIT license.
 from ipaddress import IPv4Address, IPv4Network
-
-from CybORG.CybORG import MSFScanner
-from CybORG.CybORG import InterfaceType, SessionType, ProcessType, ProcessVersion, AppProtocol
-from CybORG.CybORG import Observation
-from CybORG.CybORG import State
+from CybORG.Shared.Actions.MSFActionsFolder.MSFScannerFolder.MSFScanner import MSFScanner
+from CybORG.Shared.Enums import SessionType
+from CybORG.Shared.Observation import Observation
+from CybORG.Simulator.State import State
 
 
 # msf module is post/multi/gather/ping_sweep
@@ -33,7 +32,8 @@ class MSFPingsweep(MSFScanner):
             obs.set_success(False)
             return obs
 
-        if not (target_session.session_type == SessionType.METERPRETER or target_session.session_type == SessionType.MSF_SHELL) or not target_session.active:
+        if not (
+                target_session.session_type == SessionType.METERPRETER or target_session.session_type == SessionType.MSF_SHELL) or not target_session.active:
             obs.set_success(False)
             return obs
 
@@ -58,7 +58,8 @@ class MSFPingsweep(MSFScanner):
         if type(session_handler) is not MSFSessionHandler:
             obs.set_success(False)
             return obs
-        output = session_handler.execute_module(mtype='post', mname='multi/gather/ping_sweep',  opts={'RHOSTS': str(self.subnet), 'SESSION': self.target_session})
+        output = session_handler.execute_module(mtype='post', mname='multi/gather/ping_sweep',
+                                                opts={'RHOSTS': str(self.subnet), 'SESSION': self.target_session})
         obs.add_raw_obs(output)
         '''[*] Performing ping sweep for IP range 10.0.2.0/23
             [+] 	10.0.2.1 host found
@@ -71,9 +72,9 @@ class MSFPingsweep(MSFScanner):
             if 'host found' in line:
                 obs.set_success(True)
                 ip_address = line.split(' ')[1].replace('\t', '')
-                #session_handler._log_debug(f"New IP Address found: {ip_address}")
+                # session_handler._log_debug(f"New IP Address found: {ip_address}")
                 obs.add_interface_info(hostid=str(ip_address), ip_address=ip_address, subnet=self.subnet)
-        #session_handler._log_debug(output)
+        # session_handler._log_debug(output)
         return obs
 
     def __str__(self):

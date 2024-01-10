@@ -1,13 +1,9 @@
 ## The following code contains work of the United States Government and is not subject to domestic copyright protection under 17 USC § 105.
 ## Additionally, we waive copyright and related rights in the utilized code worldwide through the CC0 1.0 Universal public domain dedication.
-import copy
 from ipaddress import IPv4Address
-from typing import List, Optional
-
-from CybORG.CybORG import (ProcessType, ProcessVersion,
-                           TransportProtocol, DecoyType)
-from CybORG.CybORG import Entity
-from CybORG.CybORG import User
+from typing import List
+from CybORG.Shared.Enums import ProcessType, ProcessVersion, TransportProtocol, DecoyType
+from CybORG.Simulator.Entity import Entity
 
 
 class Process(Entity):
@@ -76,7 +72,7 @@ class Process(Entity):
         observations = []
         for connections_dict in self.connections:
             obs = {"pid": self.pid, "parent_pid": self.ppid, "process_name": self.name, "program_name": self.program,
-                "path": self.path, "process_type": self.process_type,
+                   "path": self.path, "process_type": self.process_type,
                    "process_version": self.version, "local_port": connections_dict['local_port'],
                    "local_address": connections_dict["local_address"]}
             if "remote_port" in connections_dict:

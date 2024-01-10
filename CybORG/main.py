@@ -1,14 +1,12 @@
 # Copyright DST Group. Licensed under the MIT license.
 import random
 from typing import Any
-
 from CybORG.Shared import Observation, Results, CybORGLogger
 from CybORG.Shared.EnvironmentController import EnvironmentController
-
 from CybORG.Simulator.SimulationController import SimulationController
 
 
-class CybORG (CybORGLogger):
+class Main(CybORGLogger):
     """The main interface for the Cyber Operations Research Gym.
 
     The primary purpose of this class is to provide a unified interface for the CybORG simulation and emulation
@@ -32,7 +30,7 @@ class CybORG (CybORGLogger):
         Map from agent name to agent interface for all agents to be used internally.
         If None agents will be loaded from description in scenario file (default=None).
     """
-    supported_envs = ['sim', 'aws']
+    supported_envs = ['sim']
 
     def __init__(self,
                  scenario_file: str,
@@ -72,18 +70,9 @@ class CybORG (CybORGLogger):
         """
         if self.env == 'sim':
             return SimulationController(self.scenario_file, agents=agents)
-        if self.env == 'aws':
-
-            if env_config:
-                return AWSClientController(
-                    self.scenario_file, agents=agents, **env_config
-                )
-            else:
-                return AWSClientController(self.scenario_file, agents=agents)
         raise NotImplementedError(
             f"Unsupported environment '{self.env}'. Currently supported "
-            f"environments are: {self.supported_envs}"
-        )
+            f"environments are: {self.supported_envs}")
 
     def step(self, agent: str = None, action=None, skip_valid_action_check: bool = False) -> Results:
         """Performs a step in CybORG for the given agent.
@@ -316,7 +305,7 @@ class CybORG (CybORGLogger):
 
         """
         return self.environment_controller.hostname_ip_map
-    
+
     def get_rewards(self):
         """
         Returns the rewards for each agent at the last executed step.
@@ -329,7 +318,7 @@ class CybORG (CybORGLogger):
         """
         return self.environment_controller.reward
 
-    def get_reward_breakdown(self,agent:str):
+    def get_reward_breakdown(self, agent: str):
         # TODO: Docstring
         return self.environment_controller.get_reward_breakdown(agent)
 

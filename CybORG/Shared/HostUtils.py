@@ -1,8 +1,7 @@
 # Copyright DST Group. Licensed under the MIT license.
 import datetime
 from ipaddress import IPv4Address, IPv4Network
-
-from CybORG import CybORG as CyEnums
+from CybORG.Shared import Enums as CyEnums
 
 
 class NetworkInterface:

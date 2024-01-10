@@ -1,7 +1,7 @@
 from typing import List
 
-from CybORG.CybORG import Action
-from CybORG.CybORG import Subnet
+from CybORG.Shared.Actions.Action import Action
+from CybORG.Simulator.Subnet import Subnet
 
 
 class ConcreteAction(Action):

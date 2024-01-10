@@ -1,8 +1,6 @@
 # TODO: create a scenario parser to check scenarios are valid
 import yaml
 
-from CybORG.CybORG import parse_image
-
 
 def parse_scenario_file(scenario_file):
     print(f'Parsing {scenario_file}')
@@ -60,7 +58,6 @@ def parse_agent(agent, hostlist, subnetlist):
 
 def parse_host(host):
     assert 'image' in host
-    parse_image(host['image'])
 
 
 def parse_subnet(subnet, host_list, subnet_list):

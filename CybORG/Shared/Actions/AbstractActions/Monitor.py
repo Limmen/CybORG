@@ -1,7 +1,7 @@
-from CybORG.CybORG import Observation
-from CybORG.CybORG import Action
-from CybORG.CybORG import VelociraptorServer
-from CybORG.CybORG import State
+from CybORG.Shared.Observation import Observation
+from CybORG.Shared.Actions.Action import Action
+from CybORG.Simulator.Session import VelociraptorServer
+from CybORG.Simulator.State import State
 
 
 class Monitor(Action):

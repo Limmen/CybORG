@@ -1,10 +1,10 @@
 # Copyright DST Group. Licensed under the MIT license.
 import string
 import random
-
-from CybORG.CybORG import MSFAction
-from CybORG.CybORG import SessionType, AppProtocol, OperatingSystemType
-from CybORG.CybORG import Observation
+from CybORG.Shared.Actions.MSFActionsFolder.MSFAction import MSFAction
+from CybORG.Simulator.Session import SessionType, OperatingSystemType
+from CybORG.Shared.Observation import Observation
+from CybORG.Shared.Enums import AppProtocol
 
 
 # Create a Windows service which runs an executable for persistence.

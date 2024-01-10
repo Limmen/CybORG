@@ -1,8 +1,8 @@
 # Copyright DST Group. Licensed under the MIT license.
-from CybORG.CybORG import MeterpreterAction
-from CybORG.CybORG import SessionType
-from CybORG.CybORG import Observation
-from CybORG.CybORG import State
+from CybORG.Shared.Actions.MSFActionsFolder.MeterpreterActionsFolder.MeterpreterAction import MeterpreterAction
+from CybORG.Simulator.Session import SessionType
+from CybORG.Shared.Observation import Observation
+from CybORG.Simulator.State import State
 
 
 # Call localtime from a meterpreter session - gives the current local time of the dict

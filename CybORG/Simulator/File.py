@@ -1,11 +1,8 @@
 # Copyright DST Group. Licensed under the MIT license.
 from datetime import datetime
-
-from CybORG.CybORG import FileType, FileVersion
-from CybORG.CybORG import Entity
-from CybORG.CybORG import LocalGroup
-from CybORG.CybORG import User
-import enum
+from CybORG.Shared.Enums import FileType, FileVersion
+from CybORG.Simulator.Entity import Entity
+from CybORG.Simulator.User import User
 
 
 class File(Entity):

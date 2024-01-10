@@ -3,7 +3,7 @@ from ipaddress import IPv4Address, IPv4Network
 
 from CybORG.CybORG import NetworkScan
 from CybORG.CybORG import FileType, InterfaceType
-from CybORG.CybORG import Observation
+from CybORG.Shared.Observation import Observation
 
 
 class NmapScan(NetworkScan):

@@ -1,10 +1,16 @@
-from CybORG.CybORG import BaseAgent
+from CybORG.Agents.SimpleAgents.BaseAgent import BaseAgent
 import random
-import math
-
 from ipaddress import IPv4Network, IPv4Address
-
-from CybORG.CybORG import NmapScan, SambaUsermapScript, UpgradeToMeterpreter, MSFAutoroute, PingSweep, MSFEternalBlue, GetShell, FindFlag, TomcatCredentialScanner, TomcatExploit, SSHLoginExploit
+from CybORG.Shared.Actions.ShellActionsFolder.NetworkScanFolder.NmapScan import NmapScan
+from CybORG.Shared.Actions.ShellActionsFolder.NetworkScanFolder.PingSweep import PingSweep
+from CybORG.Shared.Actions.MSFActionsFolder.RemoteCodeExecutionFolder.SambaUsermapScript import SambaUsermapScript
+from CybORG.Shared.Actions.MSFActionsFolder.UpgradeToMeterpreter import UpgradeToMeterpreter
+from CybORG.Shared.Actions.MSFActionsFolder.MSFAutoroute import MSFAutoroute
+from CybORG.Shared.Actions.MSFActionsFolder.RemoteCodeExecutionFolder.MSFEternalBlue import MSFEternalBlue
+from CybORG.Shared.Actions.MSFActionsFolder.MeterpreterActionsFolder.GetShell import GetShell
+from CybORG.Shared.Actions.ShellActionsFolder.FindFlag import FindFlag
+from CybORG.Shared.Actions.MSFActionsFolder.MSFScannerFolder.TomcatCredentialScanner import TomcatCredentialScanner
+from CybORG.Shared.Actions.MSFActionsFolder.RemoteCodeExecutionFolder.SSHLoginExploit import SSHLoginExploit
 
 
 class KillchainAgent(BaseAgent):

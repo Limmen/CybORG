@@ -1,11 +1,11 @@
 from ipaddress import IPv4Address
 
-from CybORG.CybORG import Observation
-from CybORG.CybORG import ExploitAction
-from CybORG.CybORG import ProcessVersion, OperatingSystemPatch, OperatingSystemType
-from CybORG.CybORG import Host
-from CybORG.CybORG import Process
-from CybORG.CybORG import State
+from CybORG.Shared.Observation import Observation
+from CybORG.Shared.Actions.ConcreteActions.ExploitAction import ExploitAction
+from CybORG.Shared.Enums import OperatingSystemPatch, OperatingSystemType
+from CybORG.Simulator.Host import Host
+from CybORG.Simulator.Process import Process
+from CybORG.Simulator.State import State
 
 
 class EternalBlue(ExploitAction):

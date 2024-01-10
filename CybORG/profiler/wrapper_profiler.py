@@ -1,20 +1,14 @@
-import cProfile
 import inspect
-
-from CybORG.CybORG import CybORG
-
-# for visualisation of code profile:
-# python -m cProfile -o profile.pstats profiler.py
-# gprof2dot -f pstats profile.pstats | dot -Tpng -o output.png && eog output.png
-from CybORG.CybORG import RedMeanderAgent
-from CybORG.CybORG import BlueTableWrapper
-from CybORG.CybORG import EnumActionWrapper
-from CybORG.CybORG import OpenAIGymWrapper
-from CybORG.CybORG import ReduceActionSpaceWrapper
+from CybORG.main import Main
+from CybORG.Agents.SimpleAgents.Meander import RedMeanderAgent
+from CybORG.Agents.Wrappers.BlueTableWrapper import BlueTableWrapper
+from CybORG.Agents.Wrappers.EnumActionWrapper import EnumActionWrapper
+from CybORG.Agents.Wrappers.OpenAIGymWrapper import OpenAIGymWrapper
+from CybORG.Agents.Wrappers.ReduceActionSpaceWrapper import ReduceActionSpaceWrapper
 
 
 def run():
-    path = str(inspect.getfile(CybORG))
+    path = str(inspect.getfile(Main))
     path = path[:-10] + '/Shared/Scenarios/Scenario1b.yaml'
     red_agent = RedMeanderAgent
     agent_name = 'Red'
@@ -22,7 +16,7 @@ def run():
                               EnumActionWrapper(
                                   ReduceActionSpaceWrapper(
                                       BlueTableWrapper(
-                                          CybORG(path, 'sim', agents={'Red': red_agent}),
+                                          Main(path, 'sim', agents={'Red': red_agent}),
                                           output_mode='vector'))))
     for i in range(100):
         for i in range(50):

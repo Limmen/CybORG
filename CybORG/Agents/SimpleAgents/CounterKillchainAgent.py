@@ -1,10 +1,9 @@
-from CybORG.CybORG import BaseAgent
+from CybORG.Agents.SimpleAgents.BaseAgent import BaseAgent
 import random
-import math
-
 from ipaddress import IPv4Address
-
-from CybORG.CybORG import VelociraptorPoll, SSHAccess, VelociraptorPoll, KillProcessLinux, VelociraptorPoll, KillProcessLinux
+from CybORG.Shared.Actions.VelociraptorActionsFolder.VelociraptorPoll import VelociraptorPoll
+from CybORG.Shared.Actions.ShellActionsFolder.OpenConnectionFolder.CredentialAccessFolder.SSHAccess import SSHAccess
+from CybORG.Shared.Actions.ShellActionsFolder.KillProcessLinux import KillProcessLinux
 
 
 class CounterKillchainAgent(BaseAgent):

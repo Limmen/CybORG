@@ -1,18 +1,15 @@
 # Copyright DST Group. Licensed under the MIT license.
-from CybORG.CybORG import Observation, Scenario
-
-from CybORG.CybORG import EmulatorConfig
-
+from CybORG.Shared.Observation import Observation
+from CybORG.Shared.Scenario import Scenario
 from .GlobalAction import GlobalAction
 
 
 class CreateGame(GlobalAction):
     """Creates a new game """
 
-    def __init__(self, scenario: Scenario, config: EmulatorConfig):
+    def __init__(self, scenario: Scenario):
         super().__init__()
         self.scenario = scenario
-        self.config = config
 
     def emu_execute(self, team_server, *args, **kwargs) -> Observation:
         self._log_info("Creating new game")

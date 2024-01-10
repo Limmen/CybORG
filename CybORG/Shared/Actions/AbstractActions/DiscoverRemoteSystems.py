@@ -1,8 +1,8 @@
 from ipaddress import IPv4Network
 
-from CybORG.CybORG import Observation
-from CybORG.CybORG import Action
-from CybORG.CybORG import Pingsweep
+from CybORG.Shared.Observation import Observation
+from CybORG.Shared.Actions.Action import Action
+from CybORG.Shared.Actions.ShellActionsFolder.NetworkScanFolder.PingSweep import PingSweep
 
 
 class DiscoverRemoteSystems(Action):

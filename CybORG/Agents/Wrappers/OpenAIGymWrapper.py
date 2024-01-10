@@ -2,9 +2,8 @@ import numpy as np
 from gym import spaces, Env
 from typing import Union, List
 from prettytable import PrettyTable
-
-from CybORG.CybORG import BaseAgent
-from CybORG.CybORG import BaseWrapper
+from CybORG.Agents.SimpleAgents.BaseAgent import BaseAgent
+from CybORG.Agents.Wrappers.BaseWrapper import BaseWrapper
 
 
 class OpenAIGymWrapper(Env, BaseWrapper):

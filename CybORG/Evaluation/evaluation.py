@@ -2,18 +2,13 @@ import subprocess
 import inspect
 import time
 from statistics import mean, stdev
-
-from CybORG.CybORG import CybORG, CYBORG_VERSION
-from CybORG.CybORG import B_lineAgent, SleepAgent
-from CybORG.CybORG import BaseAgent
-from CybORG.CybORG import BlueLoadAgent
-from CybORG.CybORG import BlueReactRemoveAgent
-from CybORG.CybORG import RedMeanderAgent
-from CybORG.CybORG import EnumActionWrapper
-from CybORG.CybORG import FixedFlatWrapper
-from CybORG.CybORG import OpenAIGymWrapper
-from CybORG.CybORG import ReduceActionSpaceWrapper
-from CybORG.CybORG import ChallengeWrapper
+from CybORG.main import Main
+from CybORG import CYBORG_VERSION
+from CybORG.Agents.SimpleAgents.B_line import B_lineAgent
+from CybORG.Agents.SimpleAgents.SleepAgent import SleepAgent
+from CybORG.Agents.SimpleAgents.BlueLoadAgent import BlueLoadAgent
+from CybORG.Agents.SimpleAgents.Meander import RedMeanderAgent
+from CybORG.Agents.Wrappers.ChallengeWrapper import ChallengeWrapper
 
 MAX_EPS = 100
 agent_name = 'Blue'
@@ -44,21 +39,21 @@ if __name__ == "__main__":
 
     print(f'Using agent {agent.__class__.__name__}, if this is incorrect please update the code to load in your agent')
 
-    file_name = str(inspect.getfile(CybORG))[:-10] + '/Evaluation/' + time.strftime("%Y%m%d_%H%M%S") + f'_{agent.__class__.__name__}.txt'
+    file_name = str(inspect.getfile(Main))[:-10] + '/Evaluation/' + time.strftime("%Y%m%d_%H%M%S") + f'_{agent.__class__.__name__}.txt'
     print(f'Saving evaluation results to {file_name}')
     with open(file_name, 'a+') as data:
         data.write(f'CybORG v{cyborg_version}, {scenario}, Commit Hash: {commit_hash}\n')
         data.write(f'author: {name}, team: {team}, technique: {name_of_agent}\n')
         data.write(f"wrappers: {wrap_line}\n")
 
-    path = str(inspect.getfile(CybORG))
+    path = str(inspect.getfile(Main))
     path = path[:-10] + f'/Shared/Scenarios/{scenario}.yaml'
 
     print(f'using CybORG v{cyborg_version}, {scenario}\n')
     for num_steps in [30, 50, 100]:
         for red_agent in [B_lineAgent, RedMeanderAgent, SleepAgent]:
 
-            cyborg = CybORG(path, 'sim', agents={'Red': red_agent})
+            cyborg = Main(path, 'sim', agents={'Red': red_agent})
             wrapped_cyborg = wrap(cyborg)
 
             observation = wrapped_cyborg.reset()

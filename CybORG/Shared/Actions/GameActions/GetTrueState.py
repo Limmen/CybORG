@@ -1,14 +1,14 @@
 # Copyright DST Group. Licensed under the MIT license.
 import re
 from ipaddress import IPv4Network, IPv4Address
-
-from CybORG.CybORG import Observation, CybORGLogger
-
-from .GameAction import GameAction
+from CybORG.Shared.Observation import Observation
+from CybORG.Shared.Logger import CybORGLogger
+from CybORG.Shared.Actions.GameActions.GameAction import GameAction
 
 
 class GetTrueState(GameAction, CybORGLogger):
     """Get true state of game. """
+
     def __init__(self, info):
         self.info = info
 
@@ -49,13 +49,17 @@ class GetTrueState(GameAction, CybORGLogger):
                     result = game_controller.execute_ssh_command('systeminfo /FO csv /NH', host)
                     if result == '' or 'command not found' in result or 'Invalid command' in result:
                         # likely fail due to wrong OS
-                        result = game_controller.execute_ssh_command('uname -s && uname -m && lsb_release -i && lsb_release -r && hostname', host)
+                        result = game_controller.execute_ssh_command(
+                            'uname -s && uname -m && lsb_release -i && lsb_release -r && hostname', host)
                         result = result.split('\n')
                         # self._log_debug(result)
-                        obs.add_system_info(hostid=host, hostname=result[4], architecture=result[1], os_type=result[0], os_distribution=result[2].split(':\t')[1], os_version=result[3].split(':\t')[1])
+                        obs.add_system_info(hostid=host, hostname=result[4], architecture=result[1], os_type=result[0],
+                                            os_distribution=result[2].split(':\t')[1],
+                                            os_version=result[3].split(':\t')[1])
                     else:
                         result = result.split(',')
-                        obs.add_system_info(hostid=host, OSType=result[1], OSDistribution=result[1], OSVersion=result[2], architecture=result[15].split('-')[0][1:])
+                        obs.add_system_info(hostid=host, OSType=result[1], OSDistribution=result[1],
+                                            OSVersion=result[2], architecture=result[15].split('-')[0][1:])
                         # game_controller._log_debug(f"System info: {result}")
                 # get processes
                 if "Processes" in data:
@@ -69,7 +73,8 @@ class GetTrueState(GameAction, CybORGLogger):
 
                         if result == '' or 'command not found' in result or 'Invalid command' in result:
                             # if failed then try linux command
-                            result = game_controller.execute_ssh_command("ps -e -o user,pid,ppid,command | awk '{print $1,$2,$3,$4}'", host)
+                            result = game_controller.execute_ssh_command(
+                                "ps -e -o user,pid,ppid,command | awk '{print $1,$2,$3,$4}'", host)
                             result = result.split('\n')
 
                             for proc in result:
@@ -79,28 +84,30 @@ class GetTrueState(GameAction, CybORGLogger):
                                 if len(p) == 4:
                                     if p[0] != 'ec2-user' and p[0] != 'ubuntu':
                                         if '/' in p[3] and '[' not in p[3]:
-                                            path, name = p[3][:p[3].rfind('/')], p[3][p[3].rfind('/')+1:]
+                                            path, name = p[3][:p[3].rfind('/')], p[3][p[3].rfind('/') + 1:]
                                         else:
                                             name = p[3]
                                             path = None
-                                        obs.add_process(hostid=host, pid=int(p[1]), parent_pid=int(p[2]), process_name=name, path=path, username=p[0])
+                                        obs.add_process(hostid=host, pid=int(p[1]), parent_pid=int(p[2]),
+                                                        process_name=name, path=path, username=p[0])
                                     else:
                                         procs_to_ignore.append(p[1])
                         else:
                             result = result.split('\n')[1:]
                             # game_controller._log_debug(f"Process info: {result}")
                             for r in result:
-                                r = r.replace('"','').split(',')
-                                if len(r)>1:
+                                r = r.replace('"', '').split(',')
+                                if len(r) > 1:
                                     obs.add_process(hostid=host, process_name=r[0], pid=r[1])
                             if 'All' in data['Processes'] or 'PPID' in data['Processes']:
-                                result = game_controller.execute_ssh_command("wmic process get processid,parentprocessid,name,executablepath /format:csv", host)
+                                result = game_controller.execute_ssh_command(
+                                    "wmic process get processid,parentprocessid,name,executablepath /format:csv", host)
                                 result = result.split('\n')[2:]
                                 # game_controller._log_debug(f"Process info: {result}")
                                 ssh_command = ''
                                 if 'All' in data['Processes'] or 'User' in data['Processes']:
                                     for r in result:
-                                        r = r.replace('"','').split(',')
+                                        r = r.replace('"', '').split(',')
                                         if len(r) > 4:
                                             path = '\\'.join(r[1].split('\\')[:-1])
                                             ssh_command += f"""wmic process where "name='{r[2]}'" call GetOwner;"""
@@ -115,9 +122,12 @@ class GetTrueState(GameAction, CybORGLogger):
                                             path = '\\'.join(r[1].split('\\')[:-1])
                                             if 'User = ' in r2[count]:
                                                 # self._log_debug(f'r2: {r2[count]}')
-                                                obs.add_process(hostid=host, path=path if path != '' else None, process_name=r[2], pid=r[3], parent_pid=r[4], username=r2[count].split('User = ')[1].split('"')[1])
+                                                obs.add_process(hostid=host, path=path if path != '' else None,
+                                                                process_name=r[2], pid=r[3], parent_pid=r[4],
+                                                                username=r2[count].split('User = ')[1].split('"')[1])
                                             else:
-                                                obs.add_process(hostid=host, path=path if path != '' else None, process_name=r[2], pid=r[3], parent_pid=r[4])
+                                                obs.add_process(hostid=host, path=path if path != '' else None,
+                                                                process_name=r[2], pid=r[3], parent_pid=r[4])
                                             count += 1
 
                                 else:
@@ -125,12 +135,14 @@ class GetTrueState(GameAction, CybORGLogger):
                                         r = r.replace('"', '').split(',')
                                         path = '\\'.join(r[1].split('\\')[:-1])
                                         if len(r) > 4:
-                                            obs.add_process(hostid=host, path=path if path != '' else None, process_name=r[2], pid=r[3], parent_pid=r[4])
+                                            obs.add_process(hostid=host, path=path if path != '' else None,
+                                                            process_name=r[2], pid=r[3], parent_pid=r[4])
 
                     if 'All' in data['Processes'] or 'Port' in data['Processes']:
-                        result = game_controller.execute_ssh_command("sudo netstat -npl4 | sed 's/LISTEN/ /g' | awk '{print $1,$4,$6}'", host)
+                        result = game_controller.execute_ssh_command(
+                            "sudo netstat -npl4 | sed 's/LISTEN/ /g' | awk '{print $1,$4,$6}'", host)
                         if result == '' or 'command not found' in result or 'Invalid command' in result:
-                            #linux command failed so try windows command
+                            # linux command failed so try windows command
                             result2 = game_controller.execute_ssh_command(f"netstat -ano", host)
                             for line in result2.split('\n'):
                                 l = re.sub(' +', ' ', line)
@@ -147,13 +159,14 @@ class GetTrueState(GameAction, CybORGLogger):
                                         else:
                                             obs.add_process(hostid=host, pid=int(l[5]), local_port=lp, local_address=ls)
                         else:
-                            #linux command worked
+                            # linux command worked
                             for conn in result.split('\n')[2:]:
                                 c = conn.split(' ')
                                 if len(c) == 3 and '/' in c[2] and ':' in c[1]:
                                     pid = c[2].split('/')[0]
                                     if pid not in procs_to_ignore:
-                                        obs.add_process(hostid=host, pid=int(pid), transport_protocol=c[0], local_address=c[1].split(':')[0], local_port=c[1].split(':')[1])
+                                        obs.add_process(hostid=host, pid=int(pid), transport_protocol=c[0],
+                                                        local_address=c[1].split(':')[0], local_port=c[1].split(':')[1])
 
                 # get files
                 if "Files" in data:
@@ -227,7 +240,6 @@ class GetTrueState(GameAction, CybORGLogger):
                                     obs.add_interface_info(hostid=host, interface_name=l[5],
                                                            ip_address=l[2].split("/")[0],
                                                            subnet=IPv4Network(l[2], strict=False))
-
 
             return obs
         return game_controller.get_true_state(self.info)

@@ -1,11 +1,11 @@
 from collections import namedtuple
 
-from CybORG.CybORG import Scenario
-from CybORG.CybORG import DistruptRewardCalculator, PwnRewardCalculator
-from CybORG.CybORG import RewardCalculator
+from CybORG.Shared.Scenario import Scenario
+from CybORG.Shared.RedRewardCalculator import DistruptRewardCalculator, PwnRewardCalculator
+from CybORG.Shared.RewardCalculator import RewardCalculator
 
+HostReward = namedtuple('HostReward', 'confidentiality availability')
 
-HostReward = namedtuple('HostReward','confidentiality availability')
 
 class ConfidentialityRewardCalculator(RewardCalculator):
     # Calculate punishment for defending agent based on compromise of hosts/data
@@ -51,6 +51,7 @@ class AvailabilityRewardCalculator(RewardCalculator):
         for host, value in self.disrupt_rc.impacted_hosts.items():
             self.impacted_hosts[host] = -1 * value
 
+
 class HybridAvailabilityConfidentialityRewardCalculator(RewardCalculator):
     # Hybrid of availability and confidentiality reward calculator
     def __init__(self, agent_name: str, scenario: Scenario):
@@ -77,6 +78,6 @@ class HybridAvailabilityConfidentialityRewardCalculator(RewardCalculator):
                 continue
             compromised = compromised_hosts[host] if host in compromised_hosts else 0
             impacted = impacted_hosts[host] if host in impacted_hosts else 0
-            reward_state = HostReward(compromised,impacted)  
-                                    # confidentiality, availability
+            reward_state = HostReward(compromised, impacted)
+            # confidentiality, availability
             self.host_scores[host] = reward_state

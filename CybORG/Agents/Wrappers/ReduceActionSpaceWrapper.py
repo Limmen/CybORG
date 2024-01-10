@@ -1,13 +1,10 @@
 import inspect
 from typing import Union
-
-from CybORG.CybORG import CybORG
-from CybORG.CybORG import BaseWrapper
-from CybORG.CybORG import Results
+from CybORG.Agents.Wrappers.BaseWrapper import BaseWrapper
 
 
 class ReduceActionSpaceWrapper(BaseWrapper):
-    def __init__(self, env: Union[BaseWrapper, CybORG]=None, agent=None):
+    def __init__(self, env: Union[BaseWrapper, main]=None, agent=None):
         super().__init__(env, agent)
         self.action_signature = {}
         self.known_params = {}

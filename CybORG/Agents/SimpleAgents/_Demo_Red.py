@@ -1,12 +1,12 @@
-from CybORG.CybORG import CybORG
+from CybORG.main import Main
 import inspect
 
 
 # Set up CybORG
 print("Setup")
-path = str(inspect.getfile(CybORG))
+path = str(inspect.getfile(Main))
 path = path[:-10] + '/Shared/Scenarios/Scenario1KeyboardRed.yaml' # Change this to pick your agents
-cyborg = CybORG(path, 'sim')
+cyborg = Main(path, 'sim')
 
 for i in range(1):
     print(f"Game: {i}")

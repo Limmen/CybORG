@@ -2,13 +2,9 @@ import inspect
 
 from stable_baselines3 import PPO
 
-from CybORG.CybORG import CybORG
-from CybORG.CybORG import BaseAgent
-from CybORG.CybORG import EnumActionWrapper
-from CybORG.CybORG import FixedFlatWrapper
-from CybORG.CybORG import OpenAIGymWrapper
-from CybORG.CybORG import ReduceActionSpaceWrapper
-from CybORG.CybORG import ChallengeWrapper
+from CybORG.main import Main
+from CybORG.Agents.SimpleAgents.BaseAgent import BaseAgent
+from CybORG.Agents.Wrappers.ChallengeWrapper import ChallengeWrapper
 
 class BlueLoadAgent(BaseAgent):
     # agent that loads a StableBaselines3 PPO model file
@@ -30,9 +26,9 @@ class BlueLoadAgent(BaseAgent):
     def get_action(self, observation, action_space):
         """gets an action from the agent that should be performed based on the agent's internal state and provided observation and action space"""
         if self.model is None:
-            path = str(inspect.getfile(CybORG))
+            path = str(inspect.getfile(Main))
             path = path[:-10] + '/Shared/Scenarios/Scenario1b.yaml'
-            cyborg = ChallengeWrapper(env=CybORG(path, 'sim'), agent_name='Blue')
+            cyborg = ChallengeWrapper(env=Main(path, 'sim'), agent_name='Blue')
             self.model = PPO('MlpPolicy', cyborg)
         action, _states = self.model.predict(observation)
         return action

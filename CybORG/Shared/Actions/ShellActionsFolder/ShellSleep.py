@@ -2,7 +2,7 @@
 
 import time
 
-from CybORG.CybORG import Observation
+from CybORG.Shared.Observation import Observation
 
 from .ShellAction import ShellAction
 

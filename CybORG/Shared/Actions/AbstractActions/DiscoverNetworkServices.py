@@ -1,8 +1,8 @@
 from ipaddress import IPv4Address
 
-from CybORG.CybORG import Observation
-from CybORG.CybORG import Action
-from CybORG.CybORG import Portscan
+from CybORG.Shared.Observation import Observation
+from CybORG.Shared.Actions.Action import Action
+from CybORG.Shared.Actions.ConcreteActions.Portscan import Portscan
 
 
 class DiscoverNetworkServices(Action):

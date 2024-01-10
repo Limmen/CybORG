@@ -1,17 +1,15 @@
-from CybORG.CybORG import CybORG
+from CybORG.main import Main
 import inspect
-
-from CybORG.CybORG import B_lineAgent
-from CybORG.CybORG import BlueMonitorAgent
-from CybORG.CybORG import KeyboardAgent
-from CybORG.CybORG import TrueTableWrapper
+from CybORG.Agents.SimpleAgents.B_line import B_lineAgent
+from CybORG.Agents.SimpleAgents.KeyboardAgent import KeyboardAgent
+from CybORG.Agents.Wrappers.TrueTableWrapper import TrueTableWrapper
 
 if __name__ == "__main__":
     print("Setup")
-    path = str(inspect.getfile(CybORG))
+    path = str(inspect.getfile(Main))
     path = path[:-10] + '/Shared/Scenarios/Scenario1b.yaml'
 
-    cyborg = TrueTableWrapper(env=CybORG(path, 'sim',agents={'Red':B_lineAgent}),observer_mode=False)
+    cyborg = TrueTableWrapper(env=Main(path, 'sim', agents={'Red': B_lineAgent}), observer_mode=False)
     agent_name = 'Blue'
 
     results = cyborg.reset(agent=agent_name)

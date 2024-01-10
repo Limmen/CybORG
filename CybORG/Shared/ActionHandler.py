@@ -1,6 +1,6 @@
 # Copyright DST Group. Licensed under the MIT license.
-from CybORG.CybORG import Action
-from CybORG.CybORG import Observation
+from CybORG.Shared.Actions.Action import Action
+from CybORG.Shared.Observation import Observation
 
 
 class ActionHandler:

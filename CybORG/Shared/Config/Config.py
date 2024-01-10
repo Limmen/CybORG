@@ -4,8 +4,8 @@ import os
 import sys
 from configparser import ConfigParser
 
-from CybORG.CybORG import CybORGLogger
-from CybORG import CybORG as ch
+from CybORG.Shared.Logger import CybORGLogger
+from CybORG.main import Main as ch
 
 
 class CybORGConfig:

@@ -19,7 +19,7 @@ class CybORGLogger:
 
     # Add extra levels to logging
     DEBUG2 = "DEBUG2"
-    DEBUG2_LVL = logging.DEBUG-1
+    DEBUG2_LVL = logging.DEBUG - 1
     logging.addLevelName(DEBUG2_LVL, DEBUG2)
 
     @staticmethod
@@ -44,7 +44,7 @@ class CybORGLogger:
         if verbosity:
             assert verbosity >= 0, "Invalid verbosity, must be >= 0"
             if verbosity <= 2:
-                console_log_level = logging.WARNING - verbosity*10
+                console_log_level = logging.WARNING - verbosity * 10
             elif verbosity == 3:
                 console_log_level = CybORGLogger.DEBUG2
             else:
@@ -200,12 +200,14 @@ def log_trace(func):
     Import this function and add @log_trace above your function of
     interest to log output to file about the functions execution
     """
+
     def call(*args, **kwargs):
         """ Actual wrapping """
         entering(func, *args)
         result = func(*args, **kwargs)
         exiting(func)
         return result
+
     return call
 
 
