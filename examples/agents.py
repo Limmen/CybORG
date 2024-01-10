@@ -1,10 +1,4 @@
-import inspect
-from pprint import pprint
-from cyborg import Main
-from cyborg.agents.Wrappers import RedTableWrapper
-from cyborg.agents import *
-from cyborg.shared.Actions import *
-
+from agents import RedTableWrapper
 
 if __name__ == '__main__':
     path = str(inspect.getfile(Main))

@@ -1,9 +1,9 @@
 import inspect
 from pprint import pprint
 from cyborg import Main
-from cyborg.agents import B_lineAgent
-from cyborg.agents.Wrappers.TrueTableWrapper import true_obs_to_table
-from cyborg.shared.Actions import Restore
+from agents import B_lineAgent
+from agents.Wrappers.TrueTableWrapper import true_obs_to_table
+from shared.Actions import Restore
 
 
 if __name__ == '__main__':

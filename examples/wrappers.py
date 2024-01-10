@@ -1,10 +1,7 @@
 import inspect
 from cyborg import Main
-from cyborg.agents.Wrappers import *
-from cyborg.agents import B_lineAgent
+from agents import B_lineAgent
 from pprint import pprint
-from cyborg.shared.Actions import Sleep
-
 
 if __name__ == '__main__':
     path = str(inspect.getfile(Main))
