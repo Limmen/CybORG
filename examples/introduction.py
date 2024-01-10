@@ -1,6 +1,7 @@
-from cyborg import Main
-from agents import B_lineAgent, GreenAgent, BlueMonitorAgent
-from agents import ChallengeWrapper
+from cyborg.main import Main
+from cyborg.agents import B_lineAgent, GreenAgent, BlueMonitorAgent
+from cyborg.agents.wrappers.challenge_wrapper import ChallengeWrapper
+from cyborg.main import Main
 import inspect
 
 if __name__ == '__main__':

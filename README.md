@@ -54,16 +54,16 @@ cyborg = CybORG(path, 'sim', agents={'Red': red_agent})
 
  
 
-To alter the interface with CybORG, [wrappers](src/cyborg/agents/Wrappers) are avaliable.
+To alter the interface with CybORG, [wrappers](src/cyborg/agents/wrappers) are avaliable.
 
  
 
-* [OpenAIGymWrapper](src/cyborg/agents/Wrappers/OpenAIGymWrapper.py) - alters the interface to conform to the OpenAI Gym specification.
-* [FixedFlatWrapper](src/cyborg/agents/Wrappers/FixedFlatWrapper.py) - converts the observation from a dictionary format into a fixed size 1-dimensional vector of floats
-* [EnumActionWrapper](src/cyborg/agents/Wrappers/EnumActionWrapper.py) - converts the action space into a single integer
-* [IntListToActionWrapper](src/cyborg/agents/Wrappers/IntListToAction.py) - converts the action classes and parameters into a list of integers
-* [ReduceActionSpaceWrapper](src/cyborg/agents/Wrappers/ReduceActionSpaceWrapper.py) - removes parameters from the action space that are unused by any of the action classes
-* [BlueTableWrapper](src/cyborg/agents/Wrappers/BlueTableWrapper.py) - aggregates information from observations and converts into a 1-dimensional vector of integers
+* [OpenAIGymWrapper](src/cyborg/agents/wrappers/OpenAIGymWrapper.py) - alters the interface to conform to the OpenAI Gym specification.
+* [FixedFlatWrapper](src/cyborg/agents/wrappers/FixedFlatWrapper.py) - converts the observation from a dictionary format into a fixed size 1-dimensional vector of floats
+* [EnumActionWrapper](src/cyborg/agents/wrappers/EnumActionWrapper.py) - converts the action space into a single integer
+* [IntListToActionWrapper](src/cyborg/agents/wrappers/IntListToAction.py) - converts the action classes and parameters into a list of integers
+* [ReduceActionSpaceWrapper](src/cyborg/agents/wrappers/ReduceActionSpaceWrapper.py) - removes parameters from the action space that are unused by any of the action classes
+* [BlueTableWrapper](src/cyborg/agents/wrappers/BlueTableWrapper.py) - aggregates information from observations and converts into a 1-dimensional vector of integers
 
  
 
@@ -83,8 +83,8 @@ def wrap(env):
     return ChallengeWrapper(env=env, agent_name='Blue')
 ```
 The agent under evaluation is defined [here](src/cyborg/evaluation/evaluation.py#L42-L43). 
-To evaluate an agent, extend the [BaseAgent](src/cyborg/agents/SimpleAgents/BaseAgent.py). 
-We have included the [BlueLoadAgent](src/cyborg/agents/SimpleAgents/BlueLoadAgent.py) as an example of an agent that uses the stable_baselines3 library.
+To evaluate an agent, extend the [BaseAgent](src/cyborg/agents/simple_agents/BaseAgent.py). 
+We have included the [BlueLoadAgent](src/cyborg/agents/simple_agents/BlueLoadAgent.py) as an example of an agent that uses the stable_baselines3 library.
 ```
 # Change this line to load your agent
 agent = BlueLoadAgent()

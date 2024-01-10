@@ -1,10 +1,10 @@
 import inspect
 from cyborg.main import Main
-from cyborg.agents.SimpleAgents.Meander import RedMeanderAgent
-from cyborg.agents.Wrappers.BlueTableWrapper import BlueTableWrapper
-from cyborg.agents.Wrappers.EnumActionWrapper import EnumActionWrapper
-from cyborg.agents.Wrappers.OpenAIGymWrapper import OpenAIGymWrapper
-from cyborg.agents.Wrappers.ReduceActionSpaceWrapper import ReduceActionSpaceWrapper
+from cyborg.agents.simple_agents.meander import RedMeanderAgent
+from cyborg.agents.wrappers.blue_table_wrapper import BlueTableWrapper
+from cyborg.agents.wrappers.enum_action_wrapper import EnumActionWrapper
+from cyborg.agents.wrappers.open_ai_gym_wrapper import OpenAIGymWrapper
+from cyborg.agents.wrappers.reduce_action_space_wrapper import ReduceActionSpaceWrapper
 
 
 def run():

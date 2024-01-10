@@ -1,9 +1,9 @@
 from cyborg.main import Main
 import inspect
-from cyborg.agents.SimpleAgents.TestAgent import TestAgent
-from cyborg.agents.Wrappers.FixedFlatWrapper import FixedFlatWrapper
-from cyborg.agents.Wrappers.IntListToAction import IntListToActionWrapper
-from cyborg.agents.Wrappers.OpenAIGymWrapper import OpenAIGymWrapper
+from cyborg.agents.simple_agents.test_agent import TestAgent
+from cyborg.agents.wrappers.fixed_flat_wrapper import FixedFlatWrapper
+from cyborg.agents.wrappers.int_list_to_action import IntListToActionWrapper
+from cyborg.agents.wrappers.open_ai_gym_wrapper import OpenAIGymWrapper
 
 MAX_STEPS_PER_GAME = 20
 MAX_EPS = 100

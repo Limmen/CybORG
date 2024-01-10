@@ -4,11 +4,11 @@ import time
 from statistics import mean, stdev
 from cyborg.main import Main
 from cyborg import CYBORG_VERSION
-from cyborg.agents.SimpleAgents.B_line import B_lineAgent
-from cyborg.agents.SimpleAgents.SleepAgent import SleepAgent
-from cyborg.agents.SimpleAgents.BlueLoadAgent import BlueLoadAgent
-from cyborg.agents.SimpleAgents.Meander import RedMeanderAgent
-from cyborg.agents.Wrappers.ChallengeWrapper import ChallengeWrapper
+from cyborg.agents.simple_agents.b_line import B_lineAgent
+from cyborg.agents.simple_agents.sleep_agent import SleepAgent
+from cyborg.agents.simple_agents.blue_load_agent import BlueLoadAgent
+from cyborg.agents.simple_agents.meander import RedMeanderAgent
+from cyborg.agents.wrappers.challenge_wrapper import ChallengeWrapper
 
 MAX_EPS = 100
 agent_name = 'Blue'

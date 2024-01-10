@@ -1,9 +1,11 @@
 # Copyright DST Group. Licensed under the MIT license.
 import random
 from typing import Any
-from cyborg.shared import Observation, Results, CybORGLogger
-from cyborg.shared.EnvironmentController import EnvironmentController
-from cyborg.simulator.SimulationController import SimulationController
+from cyborg.shared.observation import Observation
+from cyborg.shared.results import Results
+from cyborg.shared.logger import CybORGLogger
+from cyborg.shared.environment_controller import EnvironmentController
+from cyborg.simulator.simulation_controller import SimulationController
 
 
 class Main(CybORGLogger):
