@@ -356,7 +356,7 @@ class EnvironmentController:
             if agent_classes is not None and agent_name in agent_classes:
                 agent_class = agent_classes[agent_name]
             else:
-                agent_class = getattr(sys.modules['cyborg.agents'], agent_info.agent_type)
+                agent_class = getattr(sys.modules['csle_cyborg.agents'], agent_info.agent_type)
             agents[agent_name] = AgentInterface(
                 agent_class,
                 agent_name,
