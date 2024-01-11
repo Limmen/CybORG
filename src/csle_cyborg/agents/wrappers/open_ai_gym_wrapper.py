@@ -1,5 +1,5 @@
 import numpy as np
-from gym import spaces, Env
+from gymnasium import spaces, Env
 from typing import Union, List
 from prettytable import PrettyTable
 from csle_cyborg.agents.simple_agents.base_agent import BaseAgent

@@ -1,4 +1,4 @@
-from gym import Env
+from gymnasium import Env
 from csle_cyborg.agents.wrappers.base_wrapper import BaseWrapper
 from csle_cyborg.agents.wrappers.open_ai_gym_wrapper import OpenAIGymWrapper
 from csle_cyborg.agents.wrappers.blue_table_wrapper import BlueTableWrapper
