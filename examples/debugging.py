@@ -1,14 +1,14 @@
 import inspect
 from pprint import pprint
-from cyborg.main import Main
+from csle_cyborg.main import Main
 from agents import B_lineAgent
-from cyborg.agents.wrappers.true_table_wrapper import true_obs_to_table
-from cyborg.shared.actions.abstract_actions.restore import Restore
+from csle_cyborg.agents.wrappers.true_table_wrapper import true_obs_to_table
+from csle_cyborg.shared.actions.abstract_actions.restore import Restore
 
 
 if __name__ == '__main__':
     path = str(inspect.getfile(Main))
-    path = path[:-7] + '/Shared/Scenarios/Scenario2.yaml'
+    path = path[:-7] + '/shared/scenarios/Scenario2.yaml'
     env = Main(path, 'sim',agents={'Red':B_lineAgent})
     results = env.reset(agent='Blue')
     true_state = env.get_agent_state('True')

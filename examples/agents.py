@@ -1,17 +1,17 @@
 import inspect
-from cyborg.agents.simple_agents.b_line import B_lineAgent
-from cyborg.agents.simple_agents.meander import RedMeanderAgent
-from cyborg.agents.simple_agents.blue_react_agent import BlueReactRemoveAgent, BlueReactRestoreAgent
-from cyborg.agents.simple_agents.green_agent import GreenAgent
-from cyborg.agents.simple_agents.blue_monitor_agent import BlueMonitorAgent
-from cyborg.agents.simple_agents.keyboard_agent import KeyboardAgent
-from cyborg.agents.wrappers.red_table_wrapper import RedTableWrapper
-from cyborg.shared.actions.abstract_actions.restore import Restore
-from cyborg.main import Main
+from csle_cyborg.agents.simple_agents.b_line import B_lineAgent
+from csle_cyborg.agents.simple_agents.meander import RedMeanderAgent
+from csle_cyborg.agents.simple_agents.blue_react_agent import BlueReactRemoveAgent, BlueReactRestoreAgent
+from csle_cyborg.agents.simple_agents.green_agent import GreenAgent
+from csle_cyborg.agents.simple_agents.blue_monitor_agent import BlueMonitorAgent
+from csle_cyborg.agents.simple_agents.keyboard_agent import KeyboardAgent
+from csle_cyborg.agents.wrappers.red_table_wrapper import RedTableWrapper
+from csle_cyborg.shared.actions.abstract_actions.restore import Restore
+from csle_cyborg.main import Main
 
 if __name__ == '__main__':
     path = str(inspect.getfile(Main))
-    path = path[:-10] + '/Shared/Scenarios/Scenario2.yaml'
+    path = path[:-7] + '/shared/scenarios/Scenario2.yaml'
 
     env = Main(path,'sim')
 

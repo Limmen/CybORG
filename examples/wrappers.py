@@ -1,18 +1,18 @@
 import inspect
-from cyborg.main import Main
-from cyborg.agents.simple_agents.b_line import B_lineAgent
-from cyborg.agents.wrappers.enum_action_wrapper import EnumActionWrapper
-from cyborg.agents.wrappers.fixed_flat_wrapper import FixedFlatWrapper
-from cyborg.agents.wrappers.open_ai_gym_wrapper import OpenAIGymWrapper
-from cyborg.agents.wrappers.true_table_wrapper import TrueTableWrapper
-from cyborg.agents.wrappers.blue_table_wrapper import BlueTableWrapper
-from cyborg.agents.wrappers.red_table_wrapper import RedTableWrapper
-from cyborg.agents.wrappers.challenge_wrapper import ChallengeWrapper
+from csle_cyborg.main import Main
+from csle_cyborg.agents.simple_agents.b_line import B_lineAgent
+from csle_cyborg.agents.wrappers.enum_action_wrapper import EnumActionWrapper
+from csle_cyborg.agents.wrappers.fixed_flat_wrapper import FixedFlatWrapper
+from csle_cyborg.agents.wrappers.open_ai_gym_wrapper import OpenAIGymWrapper
+from csle_cyborg.agents.wrappers.true_table_wrapper import TrueTableWrapper
+from csle_cyborg.agents.wrappers.blue_table_wrapper import BlueTableWrapper
+from csle_cyborg.agents.wrappers.red_table_wrapper import RedTableWrapper
+from csle_cyborg.agents.wrappers.challenge_wrapper import ChallengeWrapper
 from pprint import pprint
 
 if __name__ == '__main__':
     path = str(inspect.getfile(Main))
-    path = path[:-7] + '/Shared/Scenarios/Scenario2.yaml'
+    path = path[:-7] + '/shared/scenarios/Scenario2.yaml'
     cyborg = Main(path,'sim')
 
     env = EnumActionWrapper(cyborg)

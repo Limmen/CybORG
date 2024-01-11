@@ -1,20 +1,20 @@
 import random
 import inspect
-from cyborg.agents.simple_agents.b_line import B_lineAgent
-from cyborg.shared.actions.abstract_actions.discover_network_services import DiscoverNetworkServices
-from cyborg.shared.actions.abstract_actions.discover_remote_systems import DiscoverRemoteSystems
-from cyborg.shared.actions.abstract_actions.exploit_remote_service import ExploitRemoteService
-from cyborg.shared.actions.abstract_actions.analyse import Analyse
-from cyborg.shared.actions.abstract_actions.remove import Remove
-from cyborg.shared.actions.abstract_actions.restore import Restore
-from cyborg.shared.actions.abstract_actions.privilege_escalate import PrivilegeEscalate
-from cyborg.shared.actions.action import Sleep
-from cyborg.main import Main
+from csle_cyborg.agents.simple_agents.b_line import B_lineAgent
+from csle_cyborg.shared.actions.abstract_actions.discover_network_services import DiscoverNetworkServices
+from csle_cyborg.shared.actions.abstract_actions.discover_remote_systems import DiscoverRemoteSystems
+from csle_cyborg.shared.actions.abstract_actions.exploit_remote_service import ExploitRemoteService
+from csle_cyborg.shared.actions.abstract_actions.analyse import Analyse
+from csle_cyborg.shared.actions.abstract_actions.remove import Remove
+from csle_cyborg.shared.actions.abstract_actions.restore import Restore
+from csle_cyborg.shared.actions.abstract_actions.privilege_escalate import PrivilegeEscalate
+from csle_cyborg.shared.actions.action import Sleep
+from csle_cyborg.main import Main
 from pprint import pprint
 
 if __name__ == '__main__':
     path = str(inspect.getfile(Main))
-    path = path[:-7] + '/Shared/Scenarios/Scenario2.yaml'
+    path = path[:-7] + '/shared/scenarios/Scenario2.yaml'
     env = Main(path, 'sim')
     results = env.reset(agent='Red')
     action_space = results.action_space

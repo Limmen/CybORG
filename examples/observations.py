@@ -1,13 +1,13 @@
 import inspect
 import random
 from pprint import pprint
-from cyborg.main import Main
+from csle_cyborg.main import Main
 from agents import B_lineAgent
-from cyborg.shared.actions.abstract_actions.analyse import Analyse
+from csle_cyborg.shared.actions.abstract_actions.analyse import Analyse
 
 if __name__ == '__main__':
     path = str(inspect.getfile(Main))
-    path = path[:-7] + '/Shared/Scenarios/Scenario2.yaml'
+    path = path[:-7] + '/shared/scenarios/Scenario2.yaml'
 
     env = Main(path, 'sim')
 

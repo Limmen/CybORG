@@ -54,16 +54,16 @@ cyborg = CybORG(path, 'sim', agents={'Red': red_agent})
 
  
 
-To alter the interface with CybORG, [wrappers](src/cyborg/agents/wrappers) are avaliable.
+To alter the interface with CybORG, [wrappers](src/csle_cyborg/agents/wrappers) are avaliable.
 
  
 
-* [OpenAIGymWrapper](src/cyborg/agents/wrappers/OpenAIGymWrapper.py) - alters the interface to conform to the OpenAI Gym specification.
-* [FixedFlatWrapper](src/cyborg/agents/wrappers/FixedFlatWrapper.py) - converts the observation from a dictionary format into a fixed size 1-dimensional vector of floats
-* [EnumActionWrapper](src/cyborg/agents/wrappers/EnumActionWrapper.py) - converts the action space into a single integer
-* [IntListToActionWrapper](src/cyborg/agents/wrappers/IntListToAction.py) - converts the action classes and parameters into a list of integers
-* [ReduceActionSpaceWrapper](src/cyborg/agents/wrappers/ReduceActionSpaceWrapper.py) - removes parameters from the action space that are unused by any of the action classes
-* [BlueTableWrapper](src/cyborg/agents/wrappers/BlueTableWrapper.py) - aggregates information from observations and converts into a 1-dimensional vector of integers
+* [OpenAIGymWrapper](src/csle_cyborg/agents/wrappers/OpenAIGymWrapper.py) - alters the interface to conform to the OpenAI Gym specification.
+* [FixedFlatWrapper](src/csle_cyborg/agents/wrappers/FixedFlatWrapper.py) - converts the observation from a dictionary format into a fixed size 1-dimensional vector of floats
+* [EnumActionWrapper](src/csle_cyborg/agents/wrappers/EnumActionWrapper.py) - converts the action space into a single integer
+* [IntListToActionWrapper](src/csle_cyborg/agents/wrappers/IntListToAction.py) - converts the action classes and parameters into a list of integers
+* [ReduceActionSpaceWrapper](src/csle_cyborg/agents/wrappers/ReduceActionSpaceWrapper.py) - removes parameters from the action space that are unused by any of the action classes
+* [BlueTableWrapper](src/csle_cyborg/agents/wrappers/BlueTableWrapper.py) - aggregates information from observations and converts into a 1-dimensional vector of integers
 
  
 
@@ -72,19 +72,19 @@ To alter the interface with CybORG, [wrappers](src/cyborg/agents/wrappers) are a
 
  
 
-To evaluate an agent's performance please use the [evaluation script](src/cyborg/evaluation/evaluation.py). 
+To evaluate an agent's performance please use the [evaluation script](src/csle_cyborg/evaluation/evaluation.py). 
 
  
 
 
-The [wrap function](src/cyborg/evaluation/evaluation.py#L22-L23) defines what wrappers will be used during evaluation.
+The [wrap function](src/csle_cyborg/evaluation/evaluation.py#L22-L23) defines what wrappers will be used during evaluation.
 ```
 def wrap(env):
     return ChallengeWrapper(env=env, agent_name='Blue')
 ```
-The agent under evaluation is defined [here](src/cyborg/evaluation/evaluation.py#L42-L43). 
-To evaluate an agent, extend the [BaseAgent](src/cyborg/agents/simple_agents/BaseAgent.py). 
-We have included the [BlueLoadAgent](src/cyborg/agents/simple_agents/BlueLoadAgent.py) as an example of an agent that uses the stable_baselines3 library.
+The agent under evaluation is defined [here](src/csle_cyborg/evaluation/evaluation.py#L42-L43). 
+To evaluate an agent, extend the [BaseAgent](src/csle_cyborg/agents/simple_agents/BaseAgent.py). 
+We have included the [BlueLoadAgent](src/csle_cyborg/agents/simple_agents/BlueLoadAgent.py) as an example of an agent that uses the stable_baselines3 library.
 ```
 # Change this line to load your agent
 agent = BlueLoadAgent()

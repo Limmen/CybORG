@@ -1,8 +1,8 @@
-from cyborg.agents.simple_agents.b_line import B_lineAgent
-from cyborg.agents.simple_agents.green_agent import GreenAgent
-from cyborg.agents.simple_agents.blue_monitor_agent import BlueMonitorAgent
-from cyborg.agents.wrappers.challenge_wrapper import ChallengeWrapper
-from cyborg.main import Main
+from csle_cyborg.agents.simple_agents.b_line import B_lineAgent
+from csle_cyborg.agents.simple_agents.green_agent import GreenAgent
+from csle_cyborg.agents.simple_agents.blue_monitor_agent import BlueMonitorAgent
+from csle_cyborg.agents.wrappers.challenge_wrapper import ChallengeWrapper
+from csle_cyborg.main import Main
 import inspect
 
 if __name__ == '__main__':
