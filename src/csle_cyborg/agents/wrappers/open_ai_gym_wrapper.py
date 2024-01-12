@@ -20,6 +20,7 @@ class OpenAIGymWrapper(Env, BaseWrapper):
         self.reward_range = (float('-inf'), float('inf'))
         self.metadata = {}
         self.action = None
+        self.possible_actions = env.possible_actions
 
     def step(self, action: Union[int, List[int]] = None) -> (object, float, bool, dict):
         self.action = action

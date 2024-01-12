@@ -12,7 +12,11 @@ class Action:
         raise NotImplementedError
 
     def __str__(self):
-        return f"{self.__class__.__name__}"
+        params = self.get_params()
+        if "hostname" not in params:
+            return f"{self.__class__.__name__.split('.')[-1]}"
+        else:
+            return f"{self.__class__.__name__.split('.')[-1]} {params['hostname']}"
 
     def get_params(self) -> dict:
         return {key:value for key, value in self.__dict__.items() if not key.startswith('__') and not callable(key)}

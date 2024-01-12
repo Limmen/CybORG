@@ -28,6 +28,7 @@ class ChallengeWrapper(Env,BaseWrapper):
         self.reward_threshold = reward_threshold
         self.max_steps = max_steps
         self.step_counter = None
+        self.possible_actions = env.possible_actions
 
     def step(self,action=None):
         obs, reward, done, info = self.env.step(action=action)
