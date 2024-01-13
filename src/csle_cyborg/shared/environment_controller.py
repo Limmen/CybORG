@@ -49,6 +49,7 @@ class EnvironmentController:
         self.reward = {}
         self.INFO_DICT = {}
         self.action = {}
+        self.next_observation = {}
         self.done = False
         self.observation = {}
         self.actions = {"Red": [], "Blue": [], "Green": []}
@@ -113,7 +114,7 @@ class EnvironmentController:
         """
 
         # for each agent:
-        next_observation = {}
+        self.next_observation = {}
         # all agents act on the state
         for agent_name, agent_object in self.agent_interfaces.items():
             # pass observation to agent to get action
@@ -129,7 +130,7 @@ class EnvironmentController:
             self.actions[agent_name].append(agent_action)
 
             # perform action on state
-            next_observation[agent_name] = self._filter_obs(self.execute_action(self.action[agent_name]), agent_name)
+            self.next_observation[agent_name] = self._filter_obs(self.execute_action(self.action[agent_name]), agent_name)
 
         # get true observation
         true_observation = self._filter_obs(self.get_true_state(self.INFO_DICT['True'])).data
@@ -141,17 +142,17 @@ class EnvironmentController:
         for agent_name, agent_object in self.agent_interfaces.items():
 
             # determine done signal for agent
-            done = self.determine_done(next_observation, true_observation, self.action[agent_name])
+            done = self.determine_done(self.next_observation, true_observation, self.action[agent_name])
             self.done = done or self.done
             # determine reward for agent
-            reward = agent_object.determine_reward(next_observation, true_observation,
+            reward = agent_object.determine_reward(self.next_observation, true_observation,
                                                    self.action, self.done)
             self.reward[agent_name] = reward + self.action[agent_name].cost
             if agent_name != agent:
                 # train agent using obs, reward, previous observation, and done
                 agent_object.train(Results(observation=self.observation[agent_name].data, reward=reward,
-                                           next_observation=next_observation[agent_name].data, done=self.done))
-            self.observation[agent_name] = next_observation[agent_name]
+                                           next_observation=self.next_observation[agent_name].data, done=self.done))
+            self.observation[agent_name] = self.next_observation[agent_name]
             agent_object.update(self.observation[agent_name])
 
             # if self.verbose and type(self.action[agent_name]) != Sleep and self.observation[agent_name].dict['success'] == True:

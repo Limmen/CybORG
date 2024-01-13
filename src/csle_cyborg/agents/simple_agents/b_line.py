@@ -27,6 +27,7 @@ class B_lineAgent(BaseAgent):
         session = 0
 
         while True:
+            hosts = [value for key, value in observation.items() if key != 'success']
             if observation['success'] == True:
                 self.action += 1 if self.action < 14 else 0
             else:
