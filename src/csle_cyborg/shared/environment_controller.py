@@ -51,6 +51,7 @@ class EnvironmentController:
         self.action = {}
         self.done = False
         self.observation = {}
+        self.actions = {"Red": [], "Blue": [], "Green": []}
         self.INFO_DICT['True'] = {}
         for host in self.scenario.hosts:
             self.INFO_DICT['True'][host] = {'System info': 'All', 'Sessions': 'All', 'Interfaces': 'All',
@@ -81,6 +82,7 @@ class EnvironmentController:
             The initial observation and actions of a agent or white team
         """
         self.reward = {}
+        self.actions = {"Red": [], "Blue": [], "Green": []}
         self.steps = 0
         self.done = False
         self.init_state = self._filter_obs(self.get_true_state(self.INFO_DICT['True'])).data
@@ -124,6 +126,7 @@ class EnvironmentController:
             if not self.test_valid_action(agent_action, agent_object) and not skip_valid_action_check:
                 agent_action = InvalidAction(agent_action)
             self.action[agent_name] = agent_action
+            self.actions[agent_name].append(agent_action)
 
             # perform action on state
             next_observation[agent_name] = self._filter_obs(self.execute_action(self.action[agent_name]), agent_name)
