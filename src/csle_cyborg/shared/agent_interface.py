@@ -1,5 +1,6 @@
 # Copyright DST Group. Licensed under the MIT license.
 import sys
+from copy import deepcopy
 from csle_cyborg.shared.action_space import ActionSpace
 from csle_cyborg.shared.actions.action import Action
 from csle_cyborg.shared.baseline_reward_calculator import BaselineRewardCalculator
@@ -60,6 +61,10 @@ class AgentInterface:
             action_space=self.action_space.get_max_action_space(),
             observation=Observation().data
         )
+
+    def copy(self):
+        self.action_space = self.action_space.copy()
+        return deepcopy(self)
 
     def update(self, obs: dict, known=True):
         if isinstance(obs, Observation):

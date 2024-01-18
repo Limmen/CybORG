@@ -1,6 +1,7 @@
 # Copyright DST Group. Licensed under the MIT license.
 
 import sys
+from copy import deepcopy
 from inspect import signature
 from csle_cyborg.shared.enums import SessionType
 
@@ -22,10 +23,11 @@ class ActionSpace:
         # load in the stuff that the agent is allowed to know about
 
         # save all params
-        self.actions = {i: True for i in self.get_action_classes(actions)}
+        self.actions = {}
+        if actions is not None:
+            self.actions = {i: True for i in self.get_action_classes(actions)}
         self.action_params = {}
-        for action in self.actions:
-            self.action_params[action] = signature(action).parameters
+        self.create_action_params()
         self.allowed_subnets = allowed_subnets
         self.subnet = {}
         self.ip_address = {}
@@ -37,6 +39,28 @@ class ActionSpace:
         self.port = {}
         self.hostname = {}
         self.agent = {agent: True}
+
+    def create_action_params(self):
+        for action in self.actions:
+            self.action_params[action] = signature(action).parameters
+
+    def copy(self):
+        cp = ActionSpace(actions=None, agent="", allowed_subnets="")
+        cp.actions = deepcopy(self.actions)
+        cp.action_params = {}
+        cp.allowed_subnets = deepcopy(self.allowed_subnets)
+        cp.subnet = deepcopy(self.subnet)
+        cp.ip_address = deepcopy(self.ip_address)
+        cp.server_session = deepcopy(self.server_session)
+        cp.client_session = deepcopy(self.client_session)
+        cp.username = deepcopy(self.username)
+        cp.password = deepcopy(self.password)
+        cp.process = deepcopy(self.process)
+        cp.port = deepcopy(self.port)
+        cp.hostname = deepcopy(self.hostname)
+        cp.agent = deepcopy(self.agent)
+        return cp
+
 
     def get_name(self, action: int) -> str:
         pass

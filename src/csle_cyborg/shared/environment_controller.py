@@ -97,6 +97,11 @@ class EnvironmentController:
             return Results(observation=self.observation[agent].data,
                            action_space=self.agent_interfaces[agent].action_space.get_action_space())
 
+    # def update_observation(self):
+    #     for agent_name, agent_object in self.agent_interfaces.items():
+    #         self.observation[agent_name] = self._filter_obs(self.get_true_state(self.INFO_DICT[agent_name]), agent_name)
+
+
     def step(self, agent: str = None, action: Action = None, skip_valid_action_check: bool = False) -> Results:
         """Perform a step in the environment for given agent.
 
