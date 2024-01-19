@@ -16,6 +16,7 @@ class BlueTableWrapper(BaseWrapper):
         self.baseline = None
         self.output_mode = output_mode
         self.blue_info = {}
+        self.success = False
 
     def reset(self, agent='Blue'):
         result = self.env.reset(agent)
@@ -43,8 +44,8 @@ class BlueTableWrapper(BaseWrapper):
 
     def observation_change(self, observation, baseline=False):
         obs = observation if type(observation) == dict else observation.data
-        obs = deepcopy(observation)
         success = obs['success']
+        self.success = success
 
         self._process_last_action()
         anomaly_obs = self._detect_anomalies(obs) if not baseline else obs
