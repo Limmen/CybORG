@@ -16,6 +16,7 @@ class B_lineAgent(BaseAgent):
         self.last_ip_address = None
         self.action_history = {}
         self.jumps = [0, 1, 2, 2, 2, 2, 5, 5, 5, 5, 9, 9, 9, 12, 13]
+        self.success = True
 
     def train(self, results: Results):
         """allows an agent to learn a policy"""
@@ -29,8 +30,10 @@ class B_lineAgent(BaseAgent):
         while True:
             hosts = [value for key, value in observation.items() if key != 'success']
             if observation['success'] == True:
+                self.success = True
                 self.action += 1 if self.action < 14 else 0
             else:
+                self.success = False
                 self.action = self.jumps[self.action]
 
             if self.action in self.action_history:

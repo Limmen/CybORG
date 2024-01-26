@@ -123,7 +123,6 @@ class EnvironmentController:
         # all agents act on the state
         for agent_name, agent_object in self.agent_interfaces.items():
             # pass observation to agent to get action
-
             if agent is None or action is None or agent != agent_name:
                 agent_action = agent_object.get_action(self.observation[agent_name])
 
