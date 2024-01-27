@@ -17,6 +17,7 @@ class B_lineAgent(BaseAgent):
         self.action_history = {}
         self.jumps = [0, 1, 2, 2, 2, 2, 5, 5, 5, 5, 9, 9, 9, 12, 13]
         self.success = True
+        self.base_jump = False
 
     def train(self, results: Results):
         """allows an agent to learn a policy"""
@@ -119,6 +120,7 @@ class B_lineAgent(BaseAgent):
                                                   ip_address=info[0]['Interface'][0]['IP Address'])
                 else:
                     self.action = 0
+                    self.base_jump = True
                     continue
             # Privilege escalation on Op_Server0
             elif self.action == 13:
@@ -129,6 +131,8 @@ class B_lineAgent(BaseAgent):
 
             if self.action not in self.action_history:
                 self.action_history[self.action] = action
+            if not self.action == 1 and self.base_jump:
+                self.base_jump = False
             return action
 
     def end_episode(self):
