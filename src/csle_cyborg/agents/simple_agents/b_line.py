@@ -30,12 +30,15 @@ class B_lineAgent(BaseAgent):
 
         while True:
             hosts = [value for key, value in observation.items() if key != 'success']
+            # print(f"CURRENT STATE: {self.action}")
             if observation['success'] == True:
                 self.success = True
                 self.action += 1 if self.action < 14 else 0
             else:
                 self.success = False
+                # print(f"JUMP FROM: {self.action}")
                 self.action = self.jumps[self.action]
+            # print(f"NEXT STATE: {self.action}")
 
             if self.action in self.action_history:
                 action = self.action_history[self.action]
