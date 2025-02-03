@@ -28,7 +28,7 @@ class EnvironmentController:
         agent interface object for agents in scenario
     """
 
-    def __init__(self, scenario_path: str, scenario_mod: dict = None, agents: dict = None):
+    def __init__(self, scenario_dict: dict, scenario_mod: dict = None, agents: dict = None):
         """Instantiates the Environment Controller.
         Parameters
         ----------
@@ -42,8 +42,8 @@ class EnvironmentController:
         self.hostname_ip_map = None
         self.subnet_cidr_map = None
         # self.scenario_dict = self._parse_scenario(scenario_path, scenario_mod=scenario_mod)
-        scenario_dict = self._parse_scenario(scenario_path)
-        self.scenario = Scenario(scenario_dict)
+        self.scenario_dict = scenario_dict
+        self.scenario = Scenario(self.scenario_dict)
         self._create_environment()
         self.agent_interfaces = self._create_agents(agents)
         self.reward = {}
